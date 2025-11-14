@@ -1,0 +1,306 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+    --clr-primary: #7380ec;
+    --clr-danger: #ff7782;
+    --clr-success: #41f1b6;
+    --clr-white: #fff;
+    --clr-info-dark: #7d8da1;
+    --clr-info-light: #dce1eb;
+    --clr-dark: #363949;
+    --clr-warnig: #ff4edc;
+    --clr-light: rgba(132, 139, 200, 0.18);
+    --clr-primary-variant: #111e88;
+    --clr-dark-variant: #677483;
+    --clr-color-background: #f6f6f9;
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+    --box-shadow: 0 2rem 3rem var(--clr-light);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: 0;
+    list-style: none;
+    appearance: none;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    font-size: 0.88rem;
+    user-select: none;
+    overflow-x: hidden;
+}
+
+.container {
+    margin-left: 16rem;
+    width: calc(100% - 16rem);
+    height: 100vh;
+    overflow-y: auto; /* isi utama bisa scroll */
+    padding-right: 1rem;
+}
+
+a{
+    color: var(--clr-dark);
+}
+
+h1{
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+h2{
+    font-size: 1.4rem;
+}
+
+h3{
+    font-size: 0.87rem;
+}
+
+h4{
+    font-size: 0.8rem;
+}
+
+h5{
+    font-size: 0.77rem;
+}
+
+small{
+    font-size: 0.75rem;
+}
+
+.profile-photo{
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.text-muted{
+    color: var(--clr-info-dark);
+}
+
+p{
+    color: var(--clr-dark-variant);
+}
+
+b{
+    color: var(--clr-dark);
+}
+
+.primary{
+    color: var(--clr-primary);
+}
+
+.success{
+    color: var(--clr-success);
+}
+.danger{
+    color: var(--clr-danger);
+}
+.warning{
+    color: var(--clr-warnig);
+}
+
+aside {
+    width: 16rem;
+    height: 100vh;
+    background: var(--clr-white);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+}
+
+aside .top{
+    display: flex;
+    background-color: var(--clr-white); 
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1.4rem;
+}
+aside .logo{
+    display: flex;
+    gap:  1rem;
+}
+
+aside .logo div.close{
+    display: none;
+}
+
+aside .sidebar{
+    background-color: var(--clr-white);
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    position: relative;
+    top: 1rem;
+}
+
+aside .h3{
+    font-weight: 400;
+}
+
+aside .sidebar a{
+    display: flex;
+    color: var(--clr-info-dark);
+    margin-left: 2rem;
+    gap: 1rem;
+    align-items: center;
+    height: 3.2rem;
+    transition: all .1s ease-in;
+}
+
+aside .sidebar a span{
+    font-size: 1.6rem;
+    transition: all .1s ease-in;
+}
+
+aside .sidebar a:last-child{
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+}
+
+aside .sidebar a.active{
+    background: var(--clr-light);
+    color: var(--clr-primary);
+    margin-left: 0;
+    border-left: 5px solid var(--clr-primary);
+}
+
+aside .sidebar a.active:before{
+    content: '';
+    width: 6px;
+    height: 100%;
+    background-color: var(--clr-primary);
+}
+
+aside .sidebar a:hover{
+    color: var(--clr-primary);
+}
+
+aside .sidebar a:hover span{
+    margin-left: 1rem;
+    transition: .4s ease;
+}
+
+/* diatas adalah sidebar menu */
+
+.box{
+    max-width: 900px;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.title {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+.welcome-card {
+    background: linear-gradient(to right, #f0dfb8, #e4c978);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.welcome-card h2 {
+    margin-bottom: 8px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.search-box {
+    background: var(--clr-primary);
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 30px;
+    width: 70%;
+    margin-bottom: 25px;
+}
+
+.search-box i {
+    font-size: 20px;
+    color: white;
+}
+
+.search-box input {
+    border: none;
+    background: none;
+    margin-left: 10px;
+    width: 100%;
+    font-size: 16px;
+    color: white;
+}
+
+.search-box input::placeholder{
+    color: white;
+    opacity: 80%;
+}
+
+.subtitle {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.job-list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.job-card {
+    width: 280px;
+    border: 2px solid #000;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.job-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.location {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.detail-btn {
+    padding: 8px 0;
+    width: 130px;
+    border: 1px solid #000;
+    border-radius: 8px;
+    background: none;
+    cursor: pointer;
+    align-self: center;
+    transition: 0.2s;
+}
+
+.detail-btn:hover {
+    background: #eee;
+}

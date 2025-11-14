@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Boxicons -->
+    <link href="https://cdn.boxicons.com/3.0.3/fonts/basic/boxicons.min.css" rel="stylesheet">
+    <!-- Gunakan thymeleaf untuk membaca css dari folder static -->
+    <link rel="stylesheet" th:href="@{/css/loginandregstyle.css}">
+</head>
+<body>
+    <div th:if="${error}" class="error-message" style="color:red; text-align:center; margin-bottom:10px;">
+        <p th:text="${error}"></p>
+    </div>
+
+    <div class="container">
+        <div class="form-box login">
+            <form th:action="@{/login}" method="post">
+            <h1>Login dan Register</h1>
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Username" required>
+                <i class='bxr  bxs-user'></i> 
+            </div>
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Password" required>
+                <i class='bxr  bxs-lock'></i> 
+            </div>
+            <div class="forgot-link">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+
+        <div class="form-box register">
+            <form th:action="@{/register}" method="post">
+                <h1>Registration</h1>
+                <div class="input-box">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <i class='bxr  bxs-user'></i> 
+                </div>
+                <div class="input-box">
+                    <input type="email" name="email" placeholder="Email" required>
+                    <i class='bxr  bxs-envelope'    ></i> 
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <i class='bxr  bxs-lock'></i> 
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+        </div>
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Hello, Welcome!</h1>
+                <p>Don't have an account?</p>
+                <button class="btn register-btn">Register</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+                <h1>Welcome!</h1>
+                <p>Already have an account?</p>
+                <button class="btn login-btn">Login</button>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/loginandregscript.js}"></script>
+</body>
+</html>
