@@ -34,22 +34,29 @@
                 </a>
                 <a th:href="@{/message}">
                     <span class="material-symbols-sharp"> message </span>
-                    <h3>Messages</h3>
+                    <h3>Pesan</h3>
                 </a>
                 <a th:href="@{/notification}">
                     <span class="material-symbols-sharp"> notifications</span>
-                    <h3>Notification</h3>
+                    <h3>Notifikasi</h3>
                 </a>
                 <a th:href="@{/profile}">
                     <span class="material-symbols-sharp"> account_circle </span>
-                    <h3>Profile</h3>
+                    <h3>Profil</h3>
                 </a>
                 <a th:href="@{/logout}">
                     <span class="material-symbols-sharp"> logout </span>
-                    <h3>Logout</h3>
+                    <h3>Keluar</h3>
                 </a>
             </div>
-         </aside>
+    </aside>
+
+    <div th:if="${successMessage}" class="popup">
+        <p th:text="${successMessage}"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+
+    <div class="content">
     <h1>Tambah Pekerjaan Baru</h1>
 
     <form action="/jobs/add" method="POST">
@@ -63,9 +70,21 @@
         <label>Harga/Jasa:</label>
         <input type="text" name="price" placeholder="Contoh: 100.000" required>
 
+        <label>Deskripsi Pekerjaan:</label>
+        <textarea name="description" placeholder="Tuliskan detail pekerjaan..." required></textarea>
+
+
         <button type="submit">Simpan</button>
     </form>
 </div>
+
+</div>
+
+<script>
+function closePopup() {
+    document.querySelector('.popup').style.display = 'none';
+}
+</script>
 
 </body>
 </html>

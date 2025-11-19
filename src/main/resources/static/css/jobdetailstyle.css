@@ -1,0 +1,106 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f8f8f8;
+    padding: 20px;
+}
+
+.detail-container {
+    max-width: 850px;
+    margin: auto;
+}
+
+.job-title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.info-box {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+.icon {
+    font-size: 35px;
+}
+
+.label {
+    font-size: 14px;
+    color: gray;
+}
+
+.value {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.subtitle {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.job-desc {
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.apply-btn {
+    width: 200px;
+    display: block;
+    margin: auto;
+    padding: 12px 20px;
+    border: 2px solid black;
+    background: white;
+    font-size: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.posted-card {
+    background: #eaeaea;
+    padding: 25px;
+    border-radius: 20px;
+    margin-top: 40px;
+}
+
+.posted-label {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.posted-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.avatar span {
+    font-size: 70px;
+}
+
+.msg-btn {
+    background: #7286d3;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.msg-btn:hover {
+    background: #5b6ac9;
+}

@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" th:href="@{/css/dashboardstyle.css}">
+    <link rel="stylesheet" th:href="@{/css/messagestyle.css}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar sec start -->
+        <!-- SIDEBAR SECTION START -->
          <aside>
             <div class="top">
                 <div class="logo">
@@ -19,7 +19,7 @@
             <!-- end top -->
 
             <div class="sidebar">
-                <a href="@{/dashboard}">
+                <a th:href="@{/dashboard}">
                     <span class="material-symbols-sharp"> grid_view </span>
                     <h3>Dashboard</h3>
                 </a>
@@ -34,22 +34,83 @@
                 </a>
                 <a th:href="@{/message}" class="active">
                     <span class="material-symbols-sharp"> message </span>
-                    <h3>Messages</h3>
+                    <h3>Pesan</h3>
                 </a>
                 <a th:href="@{/notification}">
                     <span class="material-symbols-sharp"> notifications</span>
-                    <h3>Notification</h3>
+                    <h3>Notifikasi</h3>
                 </a>
                 <a th:href="@{/profile}">
                     <span class="material-symbols-sharp"> account_circle </span>
-                    <h3>Profile</h3>
+                    <h3>Profil</h3>
                 </a>
                 <a th:href="@{/logout}">
                     <span class="material-symbols-sharp"> logout </span>
-                    <h3>Logout</h3>
+                    <h3>Keluar</h3>
                 </a>
+            </div>     
+    </aside>
+    <!-- SIDEBAR SECTION END -->
+    
+    <!-- Main content -->
+    <main class="messages-container">
+
+        <!-- Left Side: Conversation List -->
+        <div class="conversation-list">
+            <h2>Pesan</h2>
+            <div class="conversations">
+
+                <!-- Loop list conversation -->
+                <a th:each="conv : ${conversations}"
+                th:href="@{'/message/' + ${conv.id}}"
+                class="conversation-item">
+
+                    <div class="conv-user">
+                        <div class="avatar">
+                            <span class="material-symbols-sharp"> account_circle </span>
+                        </div>
+                        <div class="conv-info">
+                            <h4 th:text="${conv.otherUser.username}">Nama User</h4>
+                            <p th:text="${conv.lastMessage}">Pesan terakhir...</p>
+                        </div>
+                    </div>
+                </a>
+
             </div>
-         </aside>
+        </div>
+
+        <!-- Right Side: Chat Area -->
+        <div class="chat-area" th:if="${selectedConversation != null}">
+            <div class="chat-header">
+                <h3 th:text="${selectedConversation.otherUser.username}">Nama User</h3>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <!-- Loop pesan -->
+                <div th:each="msg : ${messages}"
+                    th:classappend="${msg.senderId == session.userId} ? ' message me' : ' message other'">
+
+                    <p th:text="${msg.content}"></p>
+                    <small th:text="${msg.sentAt}"></small>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <form class="chat-input" th:action="@{'/message/send/' + ${selectedConversation.id}}" method="post">
+                <input type="text" name="content" placeholder="Ketik pesan..." required>
+                <button type="submit">
+                    <span class="material-symbols-sharp"> send </span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Jika belum memilih percakapan -->
+        <div class="chat-area empty" th:if="${selectedConversation == null}">
+            <p>Pilih percakapan untuk mulai mengirim pesan.</p>
+        </div>
+
+    </main>
+
     </div>
 </body>
 </html>

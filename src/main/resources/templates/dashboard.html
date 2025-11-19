@@ -34,19 +34,19 @@
                 </a>
                 <a th:href="@{/message}">
                     <span class="material-symbols-sharp"> message </span>
-                    <h3>Messages</h3>
+                    <h3>Pesan</h3>
                 </a>
                 <a th:href="@{/notification}">
                     <span class="material-symbols-sharp"> notifications</span>
-                    <h3>Notification</h3>
+                    <h3>Notifikasi</h3>
                 </a>
                 <a th:href="@{/profile}">
                     <span class="material-symbols-sharp"> account_circle </span>
-                    <h3>Profile</h3>
+                    <h3>Profil</h3>
                 </a>
                 <a th:href="@{/logout}">
                     <span class="material-symbols-sharp"> logout </span>
-                    <h3>Logout</h3>
+                    <h3>Keluar</h3>
                 </a>
             </div>
          </aside>
@@ -77,7 +77,11 @@
                     <h3 class="job-title" th:text="${job.title}"></h3>
                     <p class="location" th:text="${job.location}"></p>
                     <p class="price" th:text="${job.price}"></p>
-                    <button class="detail-btn">Lihat Detail</button>
+                    <button class="detail-btn"
+                            th:onclick="|location.href='/job/${job.id}'|">
+                        Lihat Detail
+                    </button>
+
                 </div>
 
             </div>

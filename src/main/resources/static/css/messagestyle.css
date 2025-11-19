@@ -197,91 +197,115 @@ aside .sidebar a:hover span{
     transition: .4s ease;
 }
 
-.popup {
-    background: var(--clr-success);
-    color: rgb(6, 0, 0);
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
+/* diatas adalah sidebar menu */
+
+/* ================================
+MESSAGES STYLE CSS
+================================= */
+
+.messages-container {
+    position: fixed;
+    top: 0;
+    left: 16rem; /* mengikuti ukuran sidebar */
+    width: calc(100% - 16rem);
+    height: 100vh;
+    background: var(--clr-color-background);
+    display: grid;
+    grid-template-columns: 28% 72%;
+    overflow: hidden; /* halaman tidak bisa scroll */
+    padding: 1.5rem;
+    box-sizing: border-box;
 }
-.popup button {
-    background: white;
-    color: #4caf50;
-    border: none;
-    padding: 5px 12px;
+
+/* ----------- SIDEBAR DAFTAR USER ----------- */
+.conversation-list {
+    background: var(--clr-white);
+    border-radius: var(--border-radius-2);
+    padding: 1rem;
+    overflow-y: auto;             /* daftar user scroll */
+    box-shadow: var(--box-shadow);
+}
+
+.conversation-list::-webkit-scrollbar {
+    width: 8px;
+}
+.conversation-list::-webkit-scrollbar-thumb {
+    background: var(--clr-dark-variant);
     border-radius: 5px;
-    cursor: pointer;
+}
+
+/* ----------- AREA CHAT ----------- */
+.chat-area {
+    background: var(--clr-white);
+    border-radius: var(--border-radius-2);
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--box-shadow);
+    height: 100%;
+}
+
+/* HEADER CHAT */
+.chat-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--clr-light);
     font-weight: bold;
 }
 
-.content{
-    margin-top: 30px;
+/* ISI CHAT — SCROLL */
+.chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;              /* isi chat scroll */
 }
 
-/* TITLE */
-h1 {
-    text-align: center;
-    margin: 0 0 15px;
-    font-size: 22px;
-    color: #222;
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    background: var(--clr-primary);
+    border-radius: 5px;
 }
 
-/* WRAPPER CARD */
-.form-wrapper {
-    width: 100%;
-    max-width: 380px;
-    background: #ffffff;
-    padding: 25px 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    margin: 0 auto; /* supaya tetap center */
+/* INPUT CHAT */
+.chat-input {
+    padding: 1rem;
+    border-top: 1px solid var(--clr-light);
+    display: flex;
+    gap: 10px;
 }
 
-/* LABEL */
-form label {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #444;
+.chat-input input {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: var(--border-radius-2);
+    border: 1px solid var(--clr-info-light);
 }
 
-/* INPUT */
-form input[type="text"] {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #cfcfcf;
-    font-size: 14px;
-    outline: none;
-    transition: 0.25s;
-}
-
-form input[type="text"]:focus {
-    border-color: #4a90e2;
-    box-shadow: 0 0 0 3px rgba(74,144,226,0.2);
-}
-
-/* BUTTON */
-form button {
-    width: 100%;
-    margin-top: 25px;
-    padding: 12px;
-    background: #4a90e2;
-    border: none;
-    border-radius: 8px;
+.chat-input button {
+    padding: 0.8rem 1.2rem;
+    border-radius: var(--border-radius-2);
+    background: var(--clr-primary);
     color: white;
-    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
+}
+.chat-area.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--clr-info-dark);
+    font-size: 1rem;
+    padding: 2rem;
+}
+.chat-area.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--clr-info-dark);
+    font-size: 1rem;
+    padding: 2rem;
 }
 
-form button:hover {
-    background: #357abd;
-}

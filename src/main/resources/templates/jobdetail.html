@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${job.title}">Detail Pekerjaan</title>
+    <link rel="stylesheet" th:href="@{/css/jobdetailstyle.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+</head>
+<body>
+
+<div class="detail-container">
+
+    <h1 class="job-title" th:text="${job.title}"></h1>
+
+    <!-- Job Info -->
+    <div class="info-grid">
+
+        <div class="info-box">
+            <span class="material-symbols-sharp icon">location_on</span>
+            <div>
+                <p class="label">Lokasi</p>
+                <p class="value" th:text="${job.location}"></p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <span class="material-symbols-sharp icon">payments</span>
+            <div>
+                <p class="label">Gaji</p>
+                <p class="value" th:text="'Rp. ' + ${job.price}"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <h2 class="subtitle">Deskripsi Pekerjaan</h2>
+    <p class="job-desc" th:text="${job.description}"></p>
+
+    <button class="apply-btn">Lamar Pekerjaan</button>
+
+    <!-- Posted By Card -->
+    <div class="posted-card">
+        <p class="posted-label">Diposting oleh</p>
+
+        <div class="posted-row">
+            <div class="avatar">
+                <span class="material-symbols-sharp">account_circle</span>
+            </div>
+
+            <div class="user-info">
+                <h3 th:text="${postedBy.username}"></h3>
+            </div>
+
+            <button class="msg-btn"
+                    th:onclick="'location.href=\'/message/chat/' + ${postedBy.id} + '\';'">
+                Kirim Pesan
+            </button>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
