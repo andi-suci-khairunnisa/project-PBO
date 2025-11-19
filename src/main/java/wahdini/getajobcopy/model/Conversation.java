@@ -1,6 +1,7 @@
 package wahdini.getajobcopy.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "conversations")
@@ -16,7 +17,13 @@ public class Conversation {
     @Column(name = "user2_id")
     private Long user2Id;
 
-    // Constructor kosong wajib ada
+    // ============== FIELD TAMBAHAN (TIDAK DISIMPAN DB) ==============
+    @Transient
+    private User otherUser;
+
+    @Transient
+    private String lastMessage;
+
     public Conversation() {}
 
     public Conversation(Long user1Id, Long user2Id) {
@@ -32,4 +39,10 @@ public class Conversation {
 
     public Long getUser2Id() { return user2Id; }
     public void setUser2Id(Long user2Id) { this.user2Id = user2Id; }
+
+    public User getOtherUser() { return otherUser; }
+    public void setOtherUser(User otherUser) { this.otherUser = otherUser; }
+
+    public String getLastMessage() { return lastMessage; }
+    public void setLastMessage(String lastMessage) { this.lastMessage = lastMessage; }
 }

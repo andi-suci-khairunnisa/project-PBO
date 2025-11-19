@@ -47,7 +47,7 @@ body{
     margin-left: 16rem;
     width: calc(100% - 16rem);
     height: 100vh;
-    overflow-y: auto; /* isi utama bisa scroll */
+    overflow-y: auto;
     padding-right: 1rem;
 }
 
@@ -121,7 +121,6 @@ aside {
     top: 0;
     left: 0;
     z-index: 100;
-
 }
 
 aside .top{
@@ -197,8 +196,6 @@ aside .sidebar a:hover span{
     transition: .4s ease;
 }
 
-/* diatas adalah sidebar menu */
-
 /* ================================
 MESSAGES STYLE CSS
 ================================= */
@@ -206,23 +203,25 @@ MESSAGES STYLE CSS
 .messages-container {
     position: fixed;
     top: 0;
-    left: 16rem; /* mengikuti ukuran sidebar */
+    left: 16rem;
     width: calc(100% - 16rem);
     height: 100vh;
     background: var(--clr-color-background);
     display: grid;
     grid-template-columns: 28% 72%;
-    overflow: hidden; /* halaman tidak bisa scroll */
     padding: 1.5rem;
     box-sizing: border-box;
 }
 
-/* ----------- SIDEBAR DAFTAR USER ----------- */
+/* LEFT: conversation list */
 .conversation-list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background: var(--clr-white);
     border-radius: var(--border-radius-2);
     padding: 1rem;
-    overflow-y: auto;             /* daftar user scroll */
+    overflow-y: auto;
     box-shadow: var(--box-shadow);
 }
 
@@ -234,29 +233,29 @@ MESSAGES STYLE CSS
     border-radius: 5px;
 }
 
-/* ----------- AREA CHAT ----------- */
+/* RIGHT: chat area */
 .chat-area {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background: var(--clr-white);
     border-radius: var(--border-radius-2);
     margin-left: 1rem;
-    display: flex;
-    flex-direction: column;
     box-shadow: var(--box-shadow);
-    height: 100%;
 }
 
-/* HEADER CHAT */
+/* chat header */
 .chat-header {
     padding: 1rem;
     border-bottom: 1px solid var(--clr-light);
     font-weight: bold;
 }
 
-/* ISI CHAT — SCROLL */
+/* chat messages scroll */
 .chat-messages {
     flex: 1;
     padding: 1rem;
-    overflow-y: auto;              /* isi chat scroll */
+    overflow-y: auto;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -267,12 +266,18 @@ MESSAGES STYLE CSS
     border-radius: 5px;
 }
 
-/* INPUT CHAT */
+/* chat input sticky bottom */
 .chat-input {
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     padding: 1rem;
     border-top: 1px solid var(--clr-light);
     display: flex;
     gap: 10px;
+    background: var(--clr-white);
 }
 
 .chat-input input {
@@ -290,15 +295,7 @@ MESSAGES STYLE CSS
     font-weight: 600;
     cursor: pointer;
 }
-.chat-area.empty {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: var(--clr-info-dark);
-    font-size: 1rem;
-    padding: 2rem;
-}
+
 .chat-area.empty {
     display: flex;
     justify-content: center;
@@ -309,3 +306,51 @@ MESSAGES STYLE CSS
     padding: 2rem;
 }
 
+/* chat message bubble */
+.message {
+    max-width: 70%;
+    padding: 0.8rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: var(--border-radius-2);
+    position: relative;
+    word-wrap: break-word;
+    clear: both;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    color: var(--clr-dark-variant);
+}
+
+.message.me {
+    background-color: var(--clr-primary);
+    color: #ffffff;
+    margin-left: auto;
+    border-bottom-right-radius: 0;
+}
+
+.message.other {
+    background-color: var(--clr-info-light);
+    color: #000000;
+    margin-right: auto;
+    border-bottom-left-radius: 0;
+}
+
+.message.me p {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.message.other p {
+    color: #000000;
+    font-weight: 500;
+}
+
+.message.me small{
+    color: #d1d1d1;
+}
+
+.message small {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--clr-info-dark);
+    margin-top: 0.2rem;
+}

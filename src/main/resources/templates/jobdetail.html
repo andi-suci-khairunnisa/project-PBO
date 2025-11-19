@@ -37,7 +37,11 @@
     <h2 class="subtitle">Deskripsi Pekerjaan</h2>
     <p class="job-desc" th:text="${job.description}"></p>
 
-    <button class="apply-btn">Lamar Pekerjaan</button>
+    <!-- <button class="apply-btn">Lamar Pekerjaan</button> -->
+    <form th:action="@{'/job/' + ${job.id} + '/apply'}" method="post">
+        <button class="apply-btn" type="submit">Lamar Pekerjaan</button>
+    </form>
+
 
     <!-- Posted By Card -->
     <div class="posted-card">
@@ -51,14 +55,17 @@
             <div class="user-info">
                 <h3 th:text="${postedBy.username}"></h3>
             </div>
-
             <button class="msg-btn"
-                    th:onclick="'location.href=\'/message/chat/' + ${postedBy.id} + '\';'">
+                    th:onclick="'location.href=\'/job/chat/' + ${postedBy.id} + '\';'">
                 Kirim Pesan
             </button>
         </div>
     </div>
+</div>
 
+<div class="popup" th:if="${successApply}">
+    <p th:text="${successApply}"></p>
+    <button onclick="this.parentElement.style.display='none'">OK</button>
 </div>
 
 </body>

@@ -22,6 +22,12 @@ public class Message {
     @Column(name = "sent_at")
     private java.sql.Timestamp sentAt;
 
+    // Alias supaya HTML bisa pakai msg.content
+    @Transient
+    public String getContent() {
+        return messageText;
+    }
+
     public Message() {}
 
     public Message(Long conversationId, Long senderId, String messageText) {
@@ -32,7 +38,6 @@ public class Message {
     }
 
     // Getter & Setter
-
     public Long getId() { return id; }
 
     public Long getConversationId() { return conversationId; }

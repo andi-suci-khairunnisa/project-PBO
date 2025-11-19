@@ -87,4 +87,21 @@ public class ChatController {
 
         return "redirect:/message/" + conversationId;
     }
+
+    @GetMapping("/job/chat/{receiverId}")
+    public String startChatFromJob(
+            @PathVariable Long receiverId,
+            HttpSession session) {
+
+        String username = (String) session.getAttribute("username");
+        if (username == null) return "redirect:/";
+
+        User me = userRepository.findByUsername(username);
+
+        // Dapatkan atau buat percakapan baru
+        var conv = conversationService.getOrCreateConversation(me.getId(), receiverId);
+
+        // Redirect langsung ke room chat yang benar
+        return "redirect:/message/" + conv.getId();
+    }
 }

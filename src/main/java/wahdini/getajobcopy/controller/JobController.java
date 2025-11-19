@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/jobs")
 public class JobController {
 
     @Autowired
@@ -21,22 +22,21 @@ public class JobController {
     @Autowired
     private JobRepository jobRepository;
 
-    // Menampilkan semua pekerjaan di halaman "pekerjaan terbaru"
-    @GetMapping("/jobs")
+    // === LIST JOB DI HALAMAN "PEKERJAAN TERBARU" ===
+    @GetMapping
     public String getAllJobs(Model model) {
         model.addAttribute("jobs", jobRepository.findAll());
-        return "jobs"; // akan membuat jobs.html
+        return "jobs";
     }
 
-    // Tambah pekerjaan baru (halaman form)
-    // Tambah pekerjaan baru (halaman form)
-    @GetMapping("/jobs/add")
+    // === FORM TAMBAH PEKERJAAN ===
+    @GetMapping("/add")
     public String showAddJobForm() {
         return "tambahpekerjaan";
     }
 
-    // Simpan pekerjaan baru
-    @PostMapping("/jobs/add")
+    // === SIMPAN PEKERJAAN BARU ===
+    @PostMapping("/add")
     public String addJob(
             @RequestParam String title,
             @RequestParam String location,
@@ -52,31 +52,13 @@ public class JobController {
         jobRepository.save(job);
 
         model.addAttribute("successMessage", "Pekerjaan berhasil ditambahkan!");
-        model.addAttribute("jobs", jobRepository.findAll()); // opsional
-        return "tambahpekerjaan";  // tetap di halaman ini
+        return "tambahpekerjaan";
     }
 
-
-
-
-    // API sederhana untuk dashboard (opsional)
-    @GetMapping("/api/jobs")
+    // === API LIST JOB ===
+    @GetMapping("/api")
     @ResponseBody
     public java.util.List<Job> getJobsAPI() {
         return jobRepository.findAll();
     }
-
-    @GetMapping("/job/{id}")
-    public String viewJobDetail(@PathVariable Long id, Model model) {
-        Job job = jobRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Job ID"));
-
-        User user = job.getUser();
-
-        model.addAttribute("job", job);
-        model.addAttribute("postedBy", user);
-
-        return "jobdetail"; // nama file HTML
-    }
-
 }
