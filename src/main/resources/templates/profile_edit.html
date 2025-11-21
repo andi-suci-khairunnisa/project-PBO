@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profil</title>
+    <link rel="stylesheet" th:href="@{/css/profileeditstyle.css}">
+</head>
+
+<body>
+<div class="container">
+
+    <main class="content">
+
+        <h2>Edit Profil</h2>
+        <div class="image-preview-box">
+            <img id="preview" th:src="@{'/uploads/' + ${user.profileImage}}" alt="Preview" />
+        </div>
+
+        <form th:action="@{/profile/update}" method="post" enctype="multipart/form-data">
+
+            <label>Nama Lengkap</label>
+            <input type="text" name="fullName" th:value="${user.fullName}" required>
+
+            <label>Pekerjaan</label>
+            <input type="text" name="job" th:value="${user.job}">
+
+            <label>Nomor Telepon</label>
+            <input type="text" name="phone" th:value="${user.phone}">
+
+            <label>Lokasi</label>
+            <input type="text" name="location" th:value="${user.location}">
+
+            <label>Deskripsi</label>
+            <textarea name="description" rows="4" th:text="${user.description}"></textarea>
+
+            <label>Foto Profil (opsional)</label>
+            <input type="file" name="imageFile" accept="image/*">
+
+            <h3>Pengalaman Kerja</h3>
+
+            <label>Jabatan / Posisi</label>
+            <input type="text" name="expTitle" th:value="${user.expTitle}">
+
+            <label>Nama Perusahaan / Tempat Kerja</label>
+            <input type="text" name="expCompany" th:value="${user.expCompany}">
+
+            <label>Tanggal Mulai</label>
+            <input type="text" name="expStart" placeholder="Contoh: 2019 atau Jan 2019" th:value="${user.expStart}">
+
+            <label>Tanggal Selesai</label>
+            <input type="text" name="expEnd" placeholder="Contoh: 2020 atau Sekarang" th:value="${user.expEnd}">
+
+            <label>Deskripsi Pekerjaan</label>
+            <textarea name="expDescription" rows="4" th:text="${user.expDescription}"></textarea>
+
+            <button type="submit">Simpan Perubahan</button>
+
+        </form>
+
+    </main>
+
+</div>
+
+<script>
+    document.querySelector('input[name="imageFile"]').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            document.getElementById('preview').src = URL.createObjectURL(file);
+        }
+    });
+</script>
+
+</body>
+</html>
