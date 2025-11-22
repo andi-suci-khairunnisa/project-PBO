@@ -2,7 +2,9 @@ package wahdini.getajobcopy.controller;
 
 import wahdini.getajobcopy.model.User;
 import wahdini.getajobcopy.model.Job;
+import wahdini.getajobcopy.model.JobApplication;
 import wahdini.getajobcopy.repository.UserRepository;
+import wahdini.getajobcopy.repository.JobApplicationRepository;
 import wahdini.getajobcopy.repository.JobRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,39 @@ public class JobController {
 
     @Autowired
     private JobRepository jobRepository;
+
+    @Autowired
+    private JobApplicationRepository jobApplicationRepository;
+
+    // === LAMAR PEKERJAAN ===
+    @PostMapping("/apply/{jobId}")
+    public String applyJob(@PathVariable Long jobId, HttpSession session) {
+
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Job job = jobRepository.findById(jobId).orElse(null);
+        if (job == null) {
+            return "redirect:/jobs";
+        }
+
+        // Cek apakah sudah pernah melamar
+        if (jobApplicationRepository.existsByUserAndJob(user, job)) {
+            return "redirect:/jobdetail/" + jobId + "?alreadyApplied=true";
+        }
+
+        JobApplication application = new JobApplication();
+        application.setUser(user);
+        application.setJob(job);
+        application.setStatus("APPLIED");
+
+        jobApplicationRepository.save(application);
+
+        return "redirect:/pekerjaansaya";
+    }
+
 
     // === LIST JOB DI HALAMAN "PEKERJAAN TERBARU" ===
     @GetMapping

@@ -35,8 +35,14 @@ public class AuthController {
         User user = userRepository.findByUsername(username);
 
         if (user != null && user.getPassword().equals(password)) {
+
+            // WAJIB AGAR /pekerjaansaya TIDAK NULL
+            session.setAttribute("loggedInUser", user);
+
+            // Yang lama tetap boleh
             session.setAttribute("username", user.getUsername());
             session.setAttribute("userId", user.getId());
+
             return "redirect:/dashboard";
         }
 
