@@ -246,6 +246,25 @@ form input[type="text"]:focus {
     box-shadow: 0 0 0 3px rgba(74,144,226,0.2);
 }
 
+/* TEXTAREA */
+form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #cfcfcf;
+    font-size: 14px;
+    font-family: inherit; /* mengikuti font input */
+    outline: none;
+    transition: 0.25s;
+    min-height: 100px;
+    resize: vertical; /* boleh tinggi diubah */
+}
+
+form textarea:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74,144,226,0.2);
+}
+
 /* BUTTON */
 form button {
     width: 100%;
