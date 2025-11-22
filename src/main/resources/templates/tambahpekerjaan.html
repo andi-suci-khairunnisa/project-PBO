@@ -47,9 +47,12 @@
             </div>
     </aside>
 
-    <div th:if="${successMessage}" class="popup">
-        <p th:text="${successMessage}"></p>
-        <button onclick="closePopup()">OK</button>
+    <!-- Popup Notifikasi -->
+    <div class="popup-overlay" th:if="${successMessage}">
+        <div class="popup-box">
+            <p th:text="${successMessage}"></p>
+            <button onclick="closePopup()">OK</button>
+        </div>
     </div>
 
     <div class="content">
@@ -78,7 +81,7 @@
 
 <script>
 function closePopup() {
-    document.querySelector('.popup').style.display = 'none';
+    document.querySelector('.popup-overlay').style.display = 'none';
 }
 </script>
 

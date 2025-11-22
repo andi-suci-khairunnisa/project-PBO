@@ -102,10 +102,19 @@
     </div>
 </div>
 
-<div class="popup" th:if="${successApply}">
-    <p th:text="${successApply}"></p>
-    <button onclick="this.parentElement.style.display='none'">OK</button>
+<!-- Popup Notifikasi -->
+<div class="popup-overlay" th:if="${successApply}">
+    <div class="popup-box">
+        <p th:text="${successApply}"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
 </div>
+
+<script>
+function closePopup() {
+    document.querySelector('.popup-overlay').style.display = 'none';
+}
+</script>
 
 </body>
 </html>
