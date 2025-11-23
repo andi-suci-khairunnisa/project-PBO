@@ -54,35 +54,113 @@
             <button onclick="closePopup()">OK</button>
         </div>
     </div>
+    <!-- POP UP NOTIFICATION END HERE -->
 
-    <div class="content">
-        <h1>Tambah Pekerjaan Baru</h1>
+    <!-- PAGE 1 — JOB BOARD -->
+    <div class="page active" id="page1">
+        <div class="card">
+            <h1>Job board</h1>
+            <p style="margin-bottom: 25px;">Tawarkan pekerjaan ke mereka yang membutuhkan!</p>
 
-        <form action="/jobs/add" method="POST">
+            <button class="btn-primary" onclick="goTo(2)">
+                Posting lowongan pekerjaan anda +
+            </button>
 
-            <label>Judul Pekerjaan:</label>
-            <input type="text" name="title" placeholder="Contoh: Bersih-bersih rumah" required>
+            <h3 style="margin-top: 40px;">Histori penawaran kerja</h3>
 
-            <label>Lokasi:</label>
-            <input type="text" name="location" placeholder="Contoh: Bandung, Cimahi" required>
+            <table>
+                <tr>
+                    <th>Pekerjaan</th>
+                    <th>Kategori</th>
+                    <th>Budget</th>
+                    <th>Tanggal Posting</th>
+                    <th>Status</th>
+                </tr>
 
-            <label>Harga/Jasa:</label>
-            <input type="text" name="price" placeholder="Contoh: 100.000" required>
-
-            <label>Deskripsi Pekerjaan:</label>
-            <textarea name="description" placeholder="Tuliskan detail pekerjaan..." required></textarea>
-
-
-            <button type="submit">Simpan</button>
-        </form>
+                <tr><td>Perbaikan keran air</td><td>Jasa Perbaikan</td><td>Rp125.000</td><td>11/14/2025</td><td>✔</td></tr>
+                <tr><td>Bersih-bersih teras</td><td>Kebersihan</td><td>Rp50.000</td><td>09/17/2025</td><td>✔</td></tr>
+                <tr><td>Bantu Pindahan</td><td>Angkut barang</td><td>Rp250.000</td><td>08/14/2025</td><td>✔</td></tr>
+                <tr><td>Cuci motor</td><td>Kebersihan</td><td>Rp45.000</td><td>05/07/2025</td><td>✔</td></tr>
+                <tr><td>Perbaiki pipa bocor</td><td>Jasa Perbaikan</td><td>Rp150.000</td><td>03/10/2025</td><td>✔</td></tr>
+                <tr><td>Potong rumput</td><td>Kebersihan</td><td>Rp40.000</td><td>03/10/2025</td><td>✔</td></tr>
+                <tr><td>Pilah barang bekas</td><td>Daur ulang</td><td>Rp50.000</td><td>03/10/2025</td><td>✔</td></tr>
+                <tr><td>Beli gas</td><td>Jasa belanja</td><td>Rp150.000</td><td>03/10/2025</td><td>✔</td></tr>
+            </table>
+        </div>
     </div>
 
+    <!-- PAGE 2 — FORM -->
+    <div class="page" id="page2">
+        <div class="card">
+
+            <h2>Nama Pekerjaan</h2>
+            <input type="text" placeholder="Contoh: Bersih-bersih rumah, Montir motor, dll">
+
+            <div class="row">
+                <div class="col">
+                    <label>Lokasi</label>
+                    <input type="text" placeholder="Kota/Kecamatan">
+                </div>
+
+                <div class="col">
+                    <label>Upah harian (Rp)</label>
+                    <input type="text" placeholder="Contoh: Rp100.000">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>Durasi / waktu kerja</label>
+                    <input type="text" placeholder="Contoh: 2 jam">
+                </div>
+
+                <div class="col">
+                    <label>Kategori</label>
+                    <select>
+                        <option>Pilih Kategori</option>
+                        <option>Kebersihan</option>
+                        <option>Perbaikan</option>
+                        <option>Angkut Barang</option>
+                        <option>Daur Ulang</option>
+                        <option>Jasa Belanja</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>Deskripsi</label>
+            <textarea placeholder="Jelaskan tugas, kebutuhan, syarat, dan jam kerja."></textarea>
+
+            <label>Kontak</label>
+            <input type="text" placeholder="Email atau nomor telepon">
+
+            <button class="btn-primary" onclick="goTo(3)">Kirim</button>
+
+        </div>
+    </div>
+
+    <!-- PAGE 3 — SUCCESS -->
+    <div class="page" id="page3">
+        <div class="card center">
+            <div class="success-icon">✔</div>
+            <h2>Pekerjaan berhasil di posting!</h2>
+            <p style="margin-bottom: 30px;">
+                Lowongan Anda kini tampil di daftar pekerjaan umum dan dapat dilihat oleh semua freelancer.
+            </p>
+
+            <button class="btn-primary" onclick="goTo(1)">Lihat pekerjaan saya</button><br><br>
+            <button class="btn-secondary" onclick="goTo(1)">Kembali ke beranda</button>
+        </div>
+    </div>
 </div>
 
 <script>
 function closePopup() {
     document.querySelector('.popup-overlay').style.display = 'none';
-}
+    }
+function goTo(pageNumber) {
+        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+        document.getElementById("page" + pageNumber).classList.add("active");
+    }
 </script>
 
 </body>

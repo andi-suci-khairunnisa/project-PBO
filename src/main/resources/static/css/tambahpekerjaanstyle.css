@@ -197,91 +197,185 @@ aside .sidebar a:hover span{
     transition: .4s ease;
 }
 
-.content{
-    margin-top: 30px;
+/* DIATAS ADALAH STYLE UNTUK SIDEBAR */
+
+/* Page Container */
+.page {
+    flex: 1;
+    padding: 20px;
+    margin-left: -10px; /* Sesuaikan dengan lebar sidebar */
+    margin-right: -10px;
+    display: none;
 }
 
-/* TITLE */
-h1 {
-    text-align: center;
-    margin: 0 0 15px;
-    font-size: 22px;
-    color: #222;
-}
-
-/* WRAPPER CARD */
-.form-wrapper {
-    width: 100%;
-    max-width: 380px;
-    background: #ffffff;
-    padding: 25px 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    margin: 0 auto; /* supaya tetap center */
-}
-
-/* LABEL */
-form label {
+.page.active {
     display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #444;
 }
 
-/* INPUT */
-form input[type="text"] {
+/* Card */
+.card {
+    background: white;
+    padding: 10px 45px;
+    border-radius: 18px;
+    width: 88%;
+    max-width: 1000px; /* Batasi lebar maksimal */
+    margin: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Tambah shadow untuk kedalaman */
+}
+
+.card h1,
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.card.center {
+    text-align: center;
+}
+
+/* Table */
+table {
     width: 100%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #cfcfcf;
-    font-size: 14px;
-    outline: none;
-    transition: 0.25s;
-}
-
-form input[type="text"]:focus {
-    border-color: #4a90e2;
-    box-shadow: 0 0 0 3px rgba(74,144,226,0.2);
-}
-
-/* TEXTAREA */
-form textarea {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #cfcfcf;
-    font-size: 14px;
-    font-family: inherit; /* mengikuti font input */
-    outline: none;
-    transition: 0.25s;
-    min-height: 100px;
-    resize: vertical; /* boleh tinggi diubah */
-}
-
-form textarea:focus {
-    border-color: #4a90e2;
-    box-shadow: 0 0 0 3px rgba(74,144,226,0.2);
-}
-
-/* BUTTON */
-form button {
-    width: 100%;
-    margin-top: 25px;
-    padding: 12px;
-    background: #4a90e2;
-    border: none;
-    border-radius: 8px;
-    color: white;
+    border-collapse: collapse;
+    margin-top: 30px;
     font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
 }
 
-form button:hover {
-    background: #357abd;
+th {
+    background: #d9ddff;
+    padding: 14px;
+    text-align: left;
+    font-weight: 600;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+/* Buttons */
+.btn-primary {
+    background: #5b6bc5;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background: #4a5ba0;
+}
+
+.btn-primary:focus {
+    outline: 2px solid #7c8dd9; /* Aksesibilitas */
+}
+
+.btn-secondary {
+    background: #d3d3d3;
+    color: #333;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 12px;
+    transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #c0c0c0;
+}
+
+.btn-secondary:focus {
+    outline: 2px solid #7c8dd9;
+}
+
+/* Form */
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    margin-top: 7px;
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #7c8dd9;
+    outline: none;
+}
+
+textarea {
+    height: 130px;
+    resize: vertical;
+}
+
+/* Grid helpers */
+.row {
+    display: flex;
+    gap: 25px;
+}
+
+.col {
+    flex: 1;
+}
+
+/* Success icon */
+.success-icon {
+    font-size: 85px;
+    color: #2ecc71;
+    margin-bottom: 15px;
+}
+
+/* Responsivitas untuk mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: static;
+        min-height: auto;
+        padding: 20px;
+    }
+    
+    .page {
+        margin-left: 0;
+        padding: 20px;
+    }
+    
+    .card {
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    table {
+        font-size: 14px;
+    }
+    
+    th, td {
+        padding: 10px;
+    }
 }
 
 /* === POPUP OVERLAY === */
