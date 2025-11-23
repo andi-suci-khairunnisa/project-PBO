@@ -40,21 +40,12 @@
                     <span class="material-symbols-sharp"> account_circle </span>
                     <h3>Profil</h3>
                 </a>
-                <a th:href="@{/logout}">
+                <a href="javascript:void(0)" onclick="openLogoutPopup()">
                     <span class="material-symbols-sharp"> logout </span>
                     <h3>Keluar</h3>
                 </a>
             </div>
     </aside>
-
-    <!-- Popup Notifikasi -->
-    <!-- <div class="popup-overlay" th:if="${successMessage}">
-        <div class="popup-box">
-            <p th:text="${successMessage}"></p>
-            <button onclick="closePopup()">OK</button>
-        </div>
-    </div> -->
-    <!-- POP UP NOTIFICATION END HERE -->
 
     <!-- PAGE 1 — JOB BOARD -->
     <div class="page active" id="page1">
@@ -68,24 +59,25 @@
 
             <h3 style="margin-top: 40px;">Histori penawaran kerja</h3>
 
-            <table>
-                <tr>
-                    <th>Pekerjaan</th>
-                    <th>Kategori</th>
-                    <th>Budget</th>
-                    <th>Tanggal Posting</th>
-                    <th>Status</th>
-                </tr>
+            <table border="1">
+            <tr>
+                <th>Pekerjaan</th>
+                <th>Kategori</th>
+                <th>Budget</th>
+                <th>Tanggal Posting</th>
+                <th>Status</th>
+            </tr>
 
-                <tr><td>Perbaikan keran air</td><td>Jasa Perbaikan</td><td>Rp125.000</td><td>11/14/2025</td><td>✔</td></tr>
-                <tr><td>Bersih-bersih teras</td><td>Kebersihan</td><td>Rp50.000</td><td>09/17/2025</td><td>✔</td></tr>
-                <tr><td>Bantu Pindahan</td><td>Angkut barang</td><td>Rp250.000</td><td>08/14/2025</td><td>✔</td></tr>
-                <tr><td>Cuci motor</td><td>Kebersihan</td><td>Rp45.000</td><td>05/07/2025</td><td>✔</td></tr>
-                <tr><td>Perbaiki pipa bocor</td><td>Jasa Perbaikan</td><td>Rp150.000</td><td>03/10/2025</td><td>✔</td></tr>
-                <tr><td>Potong rumput</td><td>Kebersihan</td><td>Rp40.000</td><td>03/10/2025</td><td>✔</td></tr>
-                <tr><td>Pilah barang bekas</td><td>Daur ulang</td><td>Rp50.000</td><td>03/10/2025</td><td>✔</td></tr>
-                <tr><td>Beli gas</td><td>Jasa belanja</td><td>Rp150.000</td><td>03/10/2025</td><td>✔</td></tr>
-            </table>
+            <tr th:each="job : ${jobs}">
+                <td th:text="${job.title}"></td>
+                <td th:text="${job.kategori}"></td>
+                <td th:text="${job.price}"></td>
+                <td th:text="${#temporals.format(job.postedDate, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${job.status}"></td>
+            </tr>
+
+        </table>
+
         </div>
     </div>
 
@@ -133,24 +125,21 @@
                 <label>Kontak</label>
                 <input name="phone" type="text" placeholder="Email atau nomor telepon" required>
 
-                <button id="btnKirim" class="btn-primary" disabled onclick="goTo(3)">Kirim</button>
+                <button id="btnKirim" class="btn-primary" type="submit" disabled>Kirim</button>
             </form>
 
         </div>
     </div>
+</div>
 
-    <!-- PAGE 3 — SUCCESS -->
-    <div class="page" id="page3">
-        <div class="card center">
-            <div class="success-icon">✔</div>
-            <h2>Pekerjaan berhasil di posting!</h2>
-            <p style="margin-bottom: 30px;">
-                Lowongan Anda kini tampil di daftar pekerjaan umum dan dapat dilihat oleh semua orang.
-            </p>
+<!-- LOGOUT CONFIRMATION POPUP -->
+<div class="logout-overlay" id="logoutPopup" style="display: none;">
+    <div class="logout-box">
+        <h3>Apa kamu yakin ingin keluar?</h3>
 
-            <a class="btn-primary" th:href="@{/dashboard}">Kembali ke Dashboard</a><br><br><br>
-            <a class="btn-secondary" th:href="@{/tambahpekerjaan}">Tambahkan pekerjaan lagi</a>
-
+        <div class="logout-actions">
+            <button class="btn-yes" onclick="confirmLogout()">Ya</button>
+            <button class="btn-no" onclick="closeLogoutPopup()">Tidak</button>
         </div>
     </div>
 </div>
@@ -174,19 +163,20 @@
     // jalankan validasi setiap ada perubahan data
     form.addEventListener("input", validateForm);
 
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("success") === "true") {
-        goTo(3);
-    }
-
-    // function closePopup() {
-    //     document.querySelector('.popup-overlay').style.display = 'none';
-    //     }
-
     function goTo(pageNumber) {
             document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
             document.getElementById("page" + pageNumber).classList.add("active");
         }
+    
+    function openLogoutPopup() {
+    document.getElementById("logoutPopup").style.display = "flex";
+    }
+    function closeLogoutPopup() {
+        document.getElementById("logoutPopup").style.display = "none";
+    }
+    function confirmLogout() {
+        window.location.href = "/logout"; // arahkan ke endpoint logout
+    }
 </script>
 
 </body>

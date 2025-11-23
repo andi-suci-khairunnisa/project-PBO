@@ -21,7 +21,9 @@
             <a th:href="@{/pekerjaansaya}"><span class="material-symbols-sharp"> work </span><h3>Pekerjaan Saya</h3></a>
             <a th:href="@{/message}" class="active"><span class="material-symbols-sharp"> message </span><h3>Pesan</h3></a>
             <a th:href="@{/profile}"><span class="material-symbols-sharp"> account_circle </span><h3>Profil</h3></a>
-            <a th:href="@{/logout}"><span class="material-symbols-sharp"> logout </span><h3>Keluar</h3></a>
+            <a href="javascript:void(0)" onclick="openLogoutPopup()"><span class="material-symbols-sharp"> logout </span><h3>Keluar</h3>
+</a>
+
         </div>
     </aside>
 
@@ -67,5 +69,28 @@
             <p>Pilih percakapan untuk mulai mengirim pesan.</p>
         </div>
     </main>
+    <!-- LOGOUT CONFIRMATION POPUP -->
+    <div class="logout-overlay" id="logoutPopup" style="display: none;">
+        <div class="logout-box">
+            <h3>Apa kamu yakin ingin keluar?</h3>
+
+            <div class="logout-actions">
+                <button class="btn-yes" onclick="confirmLogout()">Ya</button>
+                <button class="btn-no" onclick="closeLogoutPopup()">Tidak</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function openLogoutPopup() {
+    document.getElementById("logoutPopup").style.display = "flex";
+    }
+    function closeLogoutPopup() {
+        document.getElementById("logoutPopup").style.display = "none";
+    }
+    function confirmLogout() {
+        window.location.href = "/logout"; // arahkan ke endpoint logout
+    }
+</script>
 </body>
 </html>

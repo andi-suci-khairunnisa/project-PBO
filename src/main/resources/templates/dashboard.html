@@ -40,10 +40,11 @@
                     <span class="material-symbols-sharp"> account_circle </span>
                     <h3>Profil</h3>
                 </a>
-                <a th:href="@{/logout}">
+                <a href="javascript:void(0)" onclick="openLogoutPopup()">
                     <span class="material-symbols-sharp"> logout </span>
                     <h3>Keluar</h3>
                 </a>
+
             </div>
          </aside>
         <!-- Sidebar sec end -->
@@ -86,6 +87,18 @@
          </main>        
          <!-- Main sec end -->
     </div>
+    <!-- LOGOUT CONFIRMATION POPUP -->
+    <div class="logout-overlay" id="logoutPopup" style="display: none;">
+        <div class="logout-box">
+            <h3>Apa kamu yakin ingin keluar?</h3>
+
+            <div class="logout-actions">
+                <button class="btn-yes" onclick="confirmLogout()">Ya</button>
+                <button class="btn-no" onclick="closeLogoutPopup()">Tidak</button>
+            </div>
+        </div>
+    </div>
+
     
     <script th:src="@{/js/dashboard.js}"></script>
 </body>

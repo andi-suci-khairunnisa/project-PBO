@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/jobs")
@@ -30,7 +31,6 @@ public class JobController {
     // === LAMAR PEKERJAAN ===
     @PostMapping("/apply/{jobId}")
     public String applyJob(@PathVariable Long jobId, HttpSession session) {
-
         User user = (User) session.getAttribute("loggedInUser");
         if (user == null) {
             return "redirect:/login";
@@ -50,14 +50,16 @@ public class JobController {
         application.setUser(user);
         application.setJob(job);
         application.setStatus("APPLIED");
-
         jobApplicationRepository.save(application);
+
+        // Ubah status job menjadi selesai
+        job.setStatus("SELESAI");
+        jobRepository.save(job);
 
         return "redirect:/pekerjaansaya";
     }
 
-
-    // === LIST JOB DI HALAMAN "PEKERJAAN TERBARU" ===
+    // === LIST JOB HALAMAN PEKERJAAN TERBARU ===
     @GetMapping
     public String getAllJobs(Model model) {
         model.addAttribute("jobs", jobRepository.findAll());
@@ -66,9 +68,14 @@ public class JobController {
 
     // === FORM TAMBAH PEKERJAAN ===
     @GetMapping("/add")
-    public String showAddJobForm() {
+    public String showAddJobForm(HttpSession session, Model model) {
+        String username = (String) session.getAttribute("username");
+        User user = userRepository.findByUsername(username);
+
+        model.addAttribute("jobs", jobRepository.findByUser(user)); // ⬅ kirim list job ke halaman
         return "tambahpekerjaan";
     }
+
 
     // === SIMPAN PEKERJAAN BARU ===
     @PostMapping("/add")
@@ -79,17 +86,39 @@ public class JobController {
             @RequestParam String duration,
             @RequestParam String kategori,
             @RequestParam String phone,
-            @RequestParam(required = false) String description,
-            HttpSession session,
-            Model model) {
+            @RequestParam String description,
+            HttpSession session) {
 
         String username = (String) session.getAttribute("username");
         User user = userRepository.findByUsername(username);
 
-        Job job = new Job(title, location, price, description, duration, kategori, phone, user);
+        Job job = new Job();
+        job.setTitle(title);
+        job.setLocation(location);
+        job.setPrice(price);
+        job.setDuration(duration);
+        job.setKategori(kategori);
+        job.setPhone(phone);
+        job.setDescription(description);
+        job.setUser(user);
+
+        // otomatis isi posted date & status
+        job.setPostedDate(LocalDateTime.now());
+        job.setStatus("ACTIVE");
+
         jobRepository.save(job);
 
-        return "redirect:/tambahpekerjaan?success=true";
+        return "redirect:/jobs/add?success=true";
+    }
+
+    // === HALAMAN PEKERJAAN SAYA ===
+    @GetMapping("/my")
+    public String pekerjaanSaya(HttpSession session, Model model) {
+        String username = (String) session.getAttribute("username");
+        User user = userRepository.findByUsername(username);
+
+        model.addAttribute("jobs", jobRepository.findByUser(user));
+        return "pekerjaansaya";
     }
 
     // === API LIST JOB ===
@@ -98,4 +127,7 @@ public class JobController {
     public java.util.List<Job> getJobsAPI() {
         return jobRepository.findAll();
     }
+
+
+
 }

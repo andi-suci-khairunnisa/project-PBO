@@ -44,7 +44,7 @@
                 <h3>Profil</h3>
             </a>
 
-            <a th:href="@{/logout}">
+            <a href="javascript:void(0)" onclick="openLogoutPopup()">
                 <span class="material-symbols-sharp">logout</span>
                 <h3>Keluar</h3>
             </a>
@@ -101,6 +101,18 @@
     </main>
 </div>
 
+<!-- LOGOUT CONFIRMATION POPUP -->
+<div class="logout-overlay" id="logoutPopup" style="display: none;">
+    <div class="logout-box">
+        <h3>Apa kamu yakin ingin keluar?</h3>
+
+        <div class="logout-actions">
+            <button class="btn-yes" onclick="confirmLogout()">Ya</button>
+            <button class="btn-no" onclick="closeLogoutPopup()">Tidak</button>
+        </div>
+    </div>
+</div>
+
 <script>
 // TAB FUNCTION FIXED
 const tabButtons = document.querySelectorAll(".tab");
@@ -122,6 +134,16 @@ tabButtons.forEach(btn => {
         document.getElementById(target).style.display = "block";
     });
 });
+
+function openLogoutPopup() {
+    document.getElementById("logoutPopup").style.display = "flex";
+}
+function closeLogoutPopup() {
+    document.getElementById("logoutPopup").style.display = "none";
+}
+function confirmLogout() {
+    window.location.href = "/logout"; // arahkan ke endpoint logout
+}
 </script>
 
 </body>

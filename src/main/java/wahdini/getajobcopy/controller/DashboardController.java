@@ -28,9 +28,13 @@ public String dashboard(HttpSession session, Model model) {
     return "dashboard";
 }
 
-@GetMapping("/tambahpekerjaan")
-public String showAddJobForm() {
-    return "tambahpekerjaan";
-}
+// @GetMapping("/tambahpekerjaan")
+// public String showAddJobForm() {
+//     return "tambahpekerjaan";
+// }
 
+@GetMapping("/tambahpekerjaan")
+public String redirectAddJob() {
+    return "redirect:/jobs/add";
+}
 }

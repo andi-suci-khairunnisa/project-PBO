@@ -49,5 +49,16 @@ function ubahRating(nilaiBaru) {
     renderDashboard();
 }
 
+function openLogoutPopup() {
+    document.getElementById("logoutPopup").style.display = "flex";
+}
+function closeLogoutPopup() {
+    document.getElementById("logoutPopup").style.display = "none";
+}
+function confirmLogout() {
+    window.location.href = "/logout"; // arahkan ke endpoint logout
+}
+
 // ======== Jalankan Pertama Kali ========
 document.addEventListener("DOMContentLoaded", renderDashboard);
+
