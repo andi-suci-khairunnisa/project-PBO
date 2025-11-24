@@ -73,7 +73,12 @@
                 <td th:text="${job.kategori}"></td>
                 <td th:text="${job.price}"></td>
                 <td th:text="${#temporals.format(job.postedDate, 'dd/MM/yyyy HH:mm')}"></td>
-                <td th:text="${job.status}"></td>
+                <td>
+                    <a th:href="@{/job/{id}(id=${job.id})}">
+                        <button class="btn-detail">Lihat Detail</button>
+                    </a>
+                </td>
+
             </tr>
 
         </table>

@@ -127,7 +127,5 @@ public class JobController {
     public java.util.List<Job> getJobsAPI() {
         return jobRepository.findAll();
     }
-
-
-
+    
 }
