@@ -24,6 +24,9 @@ public class Conversation {
     @Transient
     private String lastMessage;
 
+    @Transient
+    private Long lastMessageSenderId;
+
     public Conversation() {}
 
     public Conversation(Long user1Id, Long user2Id) {
@@ -45,4 +48,7 @@ public class Conversation {
 
     public String getLastMessage() { return lastMessage; }
     public void setLastMessage(String lastMessage) { this.lastMessage = lastMessage; }
+
+    public Long getLastMessageSenderId() { return lastMessageSenderId; }
+    public void setLastMessageSenderId(Long lastMessageSenderId) { this.lastMessageSenderId = lastMessageSenderId; }
 }

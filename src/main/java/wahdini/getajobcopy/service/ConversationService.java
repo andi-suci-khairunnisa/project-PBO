@@ -54,7 +54,8 @@ public class ConversationService {
             Optional<Message> lastMsgOpt = messageRepository
                     .findTopByConversationIdOrderBySentAtDesc(c.getId());
 
-            c.setLastMessage(lastMsgOpt.map(Message::getMessageText).orElse(""));
+                c.setLastMessage(lastMsgOpt.map(Message::getMessageText).orElse(""));
+                c.setLastMessageSenderId(lastMsgOpt.map(Message::getSenderId).orElse(null));
         }
 
         return list;

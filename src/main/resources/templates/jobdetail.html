@@ -31,6 +31,7 @@
                 <a th:href="@{/pekerjaansaya}">
                     <span class="material-symbols-sharp"> work </span>
                     <h3>Pekerjaan Saya</h3>
+                    <span th:if="${acceptedNotifications != null and acceptedNotifications > 0}" class="notif-badge" th:text="${acceptedNotifications}"></span>
                 </a>
                 <a th:href="@{/message}">
                     <span class="material-symbols-sharp"> message </span>

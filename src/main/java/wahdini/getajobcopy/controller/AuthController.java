@@ -14,7 +14,10 @@ public class AuthController {
     private UserRepository userRepository;
 
     @GetMapping("/")
-    public String home() {
+    public String home(@RequestParam(value = "error", required = false) String error, org.springframework.ui.Model model) {
+        if (error != null) {
+            model.addAttribute("error", "Username atau password salah. Silakan coba lagi.");
+        }
         return "login";
     }
 

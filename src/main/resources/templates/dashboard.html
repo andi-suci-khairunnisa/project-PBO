@@ -31,10 +31,12 @@
                 <a th:href="@{/pekerjaansaya}">
                     <span class="material-symbols-sharp"> work </span>
                     <h3>Pekerjaan Saya</h3>
+                    <span th:if="${acceptedNotifications != null and acceptedNotifications > 0}" class="notif-badge" th:text="${acceptedNotifications}"></span>
                 </a>
-                <a th:href="@{/message}">
+                <a th:href="@{/message}" id="sidebar-message-link">
                     <span class="material-symbols-sharp"> message </span>
                     <h3>Pesan</h3>
+                    <span class="notif-dot" id="sidebar-message-dot" style="display:none"></span>
                 </a>
                 <a th:href="@{/profile}">
                     <span class="material-symbols-sharp"> account_circle </span>

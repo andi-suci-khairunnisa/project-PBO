@@ -263,6 +263,31 @@ aside .sidebar a:hover span{
     border-radius: 50px;
 }
 
+/* small red badge used in sidebar for notifications */
+.notif-badge {
+    background: #ef4444;
+    color: #fff;
+    border-radius: 999px;
+    padding: 3px 8px;
+    font-size: 12px;
+    margin-left: 8px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* small red dot used for presence-only notifications (no count) */
+.notif-dot {
+    width: 10px;
+    height: 10px;
+    background: #ef4444;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 6px;
+    box-shadow: 0 3px 8px rgba(239,68,68,0.18);
+}
+
 /* Jika ingin berada di kanan */
 .edit-btn.right {
     float: right;

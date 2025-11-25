@@ -33,6 +33,8 @@ function renderDashboard() {
     });
 }
 
+// notification polling removed
+
 // ======== Fungsi Simulasi Penambahan Data ========
 function tambahPekerjaan(nama, lokasi, jarak, upah) {
     daftarPekerjaan.push({ nama, lokasi, jarak, upah });

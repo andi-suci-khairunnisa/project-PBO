@@ -72,7 +72,34 @@ public class JobController {
         String username = (String) session.getAttribute("username");
         User user = userRepository.findByUsername(username);
 
-        model.addAttribute("jobs", jobRepository.findByUser(user)); // ⬅ kirim list job ke halaman
+        java.util.List<Job> jobs = jobRepository.findByUser(user);
+
+        // determine which jobs have NEW applicants since owner last viewed
+        java.util.Set<Long> jobsWithApplicants = new java.util.HashSet<>();
+        for (Job j : jobs) {
+            java.util.List<JobApplication> apps = jobApplicationRepository.findByJob(j);
+            if (apps.isEmpty()) continue;
+
+            // find latest application date
+            java.time.LocalDateTime latest = null;
+            for (JobApplication a : apps) {
+                if (a.getAppliedDate() != null) {
+                    if (latest == null || a.getAppliedDate().isAfter(latest)) {
+                        latest = a.getAppliedDate();
+                    }
+                }
+            }
+
+            // if owner never viewed (lastViewedAt == null) and there is at least one app -> show dot
+            if (j.getLastViewedAt() == null && latest != null) {
+                jobsWithApplicants.add(j.getId());
+            } else if (latest != null && j.getLastViewedAt() != null && latest.isAfter(j.getLastViewedAt())) {
+                jobsWithApplicants.add(j.getId());
+            }
+        }
+
+        model.addAttribute("jobs", jobs); // ⬅ kirim list job ke halaman
+        model.addAttribute("jobsWithApplicants", jobsWithApplicants);
         return "tambahpekerjaan";
     }
 

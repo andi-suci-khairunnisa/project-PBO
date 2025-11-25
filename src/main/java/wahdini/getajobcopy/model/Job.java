@@ -20,6 +20,7 @@ public class Job {
     private String phone;
 
     private LocalDateTime postedDate;
+    private LocalDateTime lastViewedAt;
     private String status;
 
     // === RELASI KE USER PEMBUAT JOB ===
@@ -39,6 +40,7 @@ public class Job {
     public String getKategori() { return kategori; }
     public String getPhone() { return phone; }
     public LocalDateTime getPostedDate() { return postedDate; }
+    public LocalDateTime getLastViewedAt() { return lastViewedAt; }
     public String getStatus() { return status; }
     public User getUser() { return user; }
 
@@ -52,6 +54,7 @@ public class Job {
     public void setKategori(String kategori) { this.kategori = kategori; }
     public void setPhone(String phone) { this.phone = phone; }
     public void setPostedDate(LocalDateTime postedDate) { this.postedDate = postedDate; }
+    public void setLastViewedAt(LocalDateTime lastViewedAt) { this.lastViewedAt = lastViewedAt; }
     public void setStatus(String status) { this.status = status; }
     public void setUser(User user) { this.user = user; }
 

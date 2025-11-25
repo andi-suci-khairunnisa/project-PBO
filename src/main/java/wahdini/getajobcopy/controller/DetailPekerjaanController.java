@@ -96,6 +96,10 @@ public class DetailPekerjaanController {
 
         java.util.List<JobApplication> applicants = jobApplicationRepository.findByJob(job);
 
+        // tandai bahwa pemilik telah membuka halaman detail pelamar -> hapus notifikasi
+        job.setLastViewedAt(LocalDateTime.now());
+        jobRepository.save(job);
+
         model.addAttribute("job", job);
         model.addAttribute("applicants", applicants);
 
