@@ -197,9 +197,6 @@ aside .sidebar a:hover span{
     transition: .4s ease;
 }
 
-/* diatas adalah sidebar menu */
-
-/* MAIN CONTENT */
 .content {
     flex: 1;
     padding: 40px;
@@ -267,9 +264,10 @@ aside .sidebar a:hover span{
 .notif-badge {
     background: #ef4444;
     color: #fff;
-    border-radius: 999px;
-    padding: 3px 8px;
-    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px !important;  /* ukuran aman dibaca */
     margin-left: 8px;
     font-weight: 700;
     display: inline-flex;
@@ -417,4 +415,29 @@ aside .sidebar a:hover span{
     background: #bdbdbd;
     color: #000;
 }
+
+/*
+ * profilestyle.css (Stylesheet)
+ * Tanggung Jawab: Styling halaman profile view (menampilkan user profile lengkap dengan experience).
+ * Komponen Utama:
+ *   - Sidebar: Fixed left navigation panel.
+ *   - Content: Main area dengan profile header & info sections.
+ *   - Profile Header Wrapper: Flex layout dengan profile-header & edit button.
+ *   - Profile Header: Foto profil (circular 150x150px) + nama, job, deskripsi.
+ *   - Edit Button: Green gradient button (hanya tampil untuk owner), dengan hover transform & shadow.
+ *   - Info Row: 2 columns (Location, Phone) dengan icon + label + value.
+ *   - Section Title: Pengalaman Kerja section title.
+ *   - Experience Box: Gray background box dengan jabatan, company, dates, deskripsi, atau "Belum ada" message.
+ *   - Notifications: Badge untuk acceptedNotifications pada sidebar.
+ *   - Logout Popup: Confirmation dialog untuk logout.
+ * Features:
+ *   - Responsive image dengan th:if check untuk default icon jika profile image null.
+ *   - Conditional rendering untuk "Edit Profil" button hanya jika isOwner=true.
+ *   - Experience section dengan conditional logic (tampil data jika ada, atau pesan "Belum ada").
+ * SOLID Principles (CSS):
+ *   - Single Responsibility: Rules fokus pada profile display styling.
+ *   - DRY: Reusable icon styling (.icon-navigation, .icon-phone-call).
+ *   - Maintainability: Semantic class names (.profile-header, .experience-box, .info-box).
+ * Responsive: Flex layout dapat adjust untuk mobile.
+ */
 

@@ -74,3 +74,18 @@ form { display: inline; }
   th, td { font-size: 14px; }
   button { padding: 6px 8px; }
 }
+
+/*
+ * jobboarddetailstyle.css (Stylesheet)
+ * Tanggung Jawab: Styling halaman job board detail (daftar pelamar untuk suatu job, acceptance/rejection actions).
+ * Komponen Utama:
+ *   - Container & Card: Centered layout dengan white background dan shadow.
+ *   - Table: Applicants list dengan nama, tanggal melamar, status, action buttons.
+ *   - Action Buttons: .btn-view (preview), .btn-accept (green), .btn-reject (red) dengan gradient & hover animations.
+ *   - Modern Button: Reusable .btn-modern class dengan gradient background untuk "Back to Dashboard" link.
+ * SOLID Principles (CSS):
+ *   - Single Responsibility: Fokus pada table & button styling, minimal CSS.
+ *   - DRY: Button classes dapat di-reuse di halaman lain.
+ *   - Accessibility: Focus states, clear visual hierarchy dengan gradient & shadows.
+ * Responsive: Media query untuk mobile (max-width: 680px) untuk compact display.
+ */

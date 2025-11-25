@@ -72,3 +72,25 @@
 
 </body>
 </html>
+
+<!-- 
+    profile_edit.html (Template View)
+    Tanggung Jawab: Menampilkan form untuk edit/update profil user lengkap termasuk foto, data personal, dan pengalaman kerja.
+    Komponen Utama:
+    - Image preview box untuk menampilkan foto profil yang akan di-upload.
+    - Form dengan input fields: fullName, job, phone, location, description (textarea).
+    - Foto profil upload (input file dengan accept="image/*", optional).
+    - Pengalaman kerja section: expTitle, expCompany, expStart, expEnd, expDescription.
+    - Tombol "Simpan Perubahan" untuk submit form.
+    Fitur:
+    - Form POST ke /profile/update dengan enctype="multipart/form-data" (untuk file upload).
+    - Image preview update secara real-time ketika user memilih file foto.
+    - Semua field pre-filled dengan nilai user saat ini dari database (th:value).
+    - Client-side preview menggunakan URL.createObjectURL() untuk instant preview sebelum upload.
+    Validasi:
+    - fullName adalah required field (wajib diisi).
+    - Lainnya optional (job, phone, location, description, experience, photo).
+    SOLID Principles:
+    - Single Responsibility: Template fokus pada presentasi form edit profile, business logic (save, image upload) di ProfileEditController.
+    - Separation of Concerns: HTML untuk form, CSS untuk styling, JavaScript hanya untuk image preview.
+-->

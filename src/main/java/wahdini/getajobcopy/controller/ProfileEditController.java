@@ -1,7 +1,6 @@
 package wahdini.getajobcopy.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +14,11 @@ import java.io.IOException;
 @Controller
 public class ProfileEditController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public ProfileEditController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     // FORM EDIT
     @GetMapping("/profile/edit")
@@ -57,21 +59,33 @@ public class ProfileEditController {
         
         // Upload Foto (jika ada)
         if (!imageFile.isEmpty()) {
-            String uploadDir = System.getProperty("user.dir") + "/uploads/";
-
-            File uploadFolder = new File(uploadDir);
-            if (!uploadFolder.exists()) uploadFolder.mkdirs();
-
-            String fileName = me.getId() + "_" + imageFile.getOriginalFilename();
-            File destination = new File(uploadDir + fileName);
-
-            imageFile.transferTo(destination);
-
-            me.setProfileImage(fileName);
+            handleProfileImageUpload(me, imageFile);
         }
 
         userRepository.save(me);
 
         return "redirect:/profile";
     }
+
+    private void handleProfileImageUpload(User user, MultipartFile imageFile) throws IOException {
+        String uploadDir = System.getProperty("user.dir") + "/uploads/";
+        File uploadFolder = new File(uploadDir);
+        if (!uploadFolder.exists()) {
+            uploadFolder.mkdirs();
+        }
+
+        String fileName = user.getId() + "_" + imageFile.getOriginalFilename();
+        File destination = new File(uploadDir + fileName);
+        imageFile.transferTo(destination);
+        user.setProfileImage(fileName);
+    }
 }
+
+// Controller ini menangani edit profil pengguna:
+// - Menampilkan form edit profil (`GET /profile/edit`)
+// - Memproses update profil termasuk informasi dasar, pengalaman kerja, dan upload
+//   foto profil (`POST /profile/update`)
+// Perbaikan SOLID yang diterapkan:
+// - Constructor Injection: meningkatkan testability dan mematuhi DIP
+// - Single Responsibility: file upload logic diekstraksi ke helper method untuk
+//   meningkatkan readability dan mudah di-maintain saat ada perubahan upload logic

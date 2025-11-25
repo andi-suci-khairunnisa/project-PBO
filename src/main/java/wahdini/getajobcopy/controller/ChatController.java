@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ChatController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final ConversationService conversationService;
+    private final MessageService messageService;
 
-    @Autowired
-    private ConversationService conversationService;
-
-    @Autowired
-    private MessageService messageService;
+    public ChatController(UserRepository userRepository,
+                          ConversationService conversationService,
+                          MessageService messageService) {
+        this.userRepository = userRepository;
+        this.conversationService = conversationService;
+        this.messageService = messageService;
+    }
 
     // ===========================
     // LIST CONVERSATION
@@ -105,3 +108,12 @@ public class ChatController {
         return "redirect:/message/" + conv.getId();
     }
 }
+
+// Controller ini menangani alur chat/simple messaging:
+// - Menampilkan daftar percakapan pemakai (`GET /message`)
+// - Membuka percakapan tertentu dan menampilkan pesan (`GET /message/{id}`)
+// - Mengirim pesan pada percakapan (`POST /message/send/{id}`)
+// - Memulai percakapan dari halaman job dan melakukan redirect ke room chat
+// Desain: controller hanya bertugas routing dan manajemen session; logika
+// bisnis percakapan/pesan didelegasikan ke `ConversationService` dan
+// `MessageService` untuk mematuhi Single Responsibility Principle.

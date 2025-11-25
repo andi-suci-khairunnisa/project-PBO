@@ -105,3 +105,19 @@
     <script th:src="@{/js/dashboard.js}"></script>
 </body>
 </html>
+
+<!-- 
+    dashboard.html (Template View)
+    Tanggung Jawab: Menampilkan halaman utama dashboard setelah user login, menampilkan daftar pekerjaan terbaru, dan navigasi ke fitur-fitur lain.
+    Komponen Utama:
+    - Sidebar navigasi dengan menu: Dashboard, Tambah Pekerjaan, Pekerjaan Saya (dengan badge notifikasi), Pesan, Profil, Logout.
+    - Welcome card dengan salam personal kepada user.
+    - Job list yang menampilkan pekerjaan terbaru dari database.
+    - Logout confirmation popup untuk konfirmasi sebelum logout.
+    SOLID Principles:
+    - Single Responsibility: Template ini fokus hanya pada tampilan dashboard dan navigasi, tidak ada business logic.
+    - Separation of Concerns: JavaScript untuk logout logic sudah terpisah di dashboard.js.
+    Fitur Notifikasi:
+    - Badge pada "Pekerjaan Saya" menampilkan jumlah accepted applications (acceptedNotifications dari controller).
+    - Dot notifikasi pada "Pesan" (jika ada pesan baru, managed di dashboard.js).
+-->

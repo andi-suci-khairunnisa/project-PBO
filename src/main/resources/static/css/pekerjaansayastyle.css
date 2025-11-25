@@ -197,9 +197,6 @@ aside .sidebar a:hover span{
     transition: .4s ease;
 }
 
-/* diatas adalah sidebar menu */
-
-/* Main Content */
 .content {
     padding: 40px;
     flex: 1;
@@ -311,4 +308,41 @@ h1 {
     background: #bdbdbd;
     color: #000;
 }
+
+.notif-badge {
+    background: #ef4444;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px !important;  /* ukuran aman dibaca */
+    margin-left: 8px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/*
+ * pekerjaansayastyle.css (Stylesheet)
+ * Tanggung Jawab: Styling halaman "Pekerjaan Saya" (aplikasi history dengan tab filtering).
+ * Komponen Utama:
+ *   - Sidebar: Fixed left navigation panel.
+ *   - Content: Main area dengan h1 title.
+ *   - Tabs: 3 tab buttons (Dilamar, Diterima, Selesai) dengan active state styling.
+ *   - Job List: Flex column layout untuk job cards.
+ *   - Job Card: Flex row dengan job title, location, buttons (Lihat detail, Tandai Telah Selesai).
+ *   - Detail Button: Border-only styling dengan hover effect.
+ *   - Logout Popup: Confirmation dialog untuk logout.
+ * Features:
+ *   - Tab switching dengan JavaScript (client-side, no reload).
+ *   - Job cards di-filter berdasarkan status (APPLIED, ACCEPTED, FINISHED).
+ *   - Active tab styling dengan dark background & white text.
+ * SOLID Principles (CSS):
+ *   - Single Responsibility: Rules fokus pada tabs, job cards, buttons.
+ *   - DRY: Reusable tab & button styling.
+ *   - Maintainability: Semantic class names (.tabs, .tab, .job-card, .detail-btn).
+ * Responsive: Flex layout dapat adjust untuk mobile.
+ */
 

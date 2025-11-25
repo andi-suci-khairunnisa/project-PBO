@@ -66,7 +66,7 @@ label {
 input[type="text"],
 textarea,
 input[type="file"] {
-    width: 100%;        /* Biar full lebar ke bawah */
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -104,3 +104,27 @@ button:hover {
         padding: 20px;
     }
 }
+
+/*
+ * profileeditstyle.css (Stylesheet)
+ * Tanggung Jawab: Styling halaman edit profil dengan form untuk personal & work experience data.
+ * Komponen Utama:
+ *   - Container: Centered card max-width 600px dengan white background & shadow.
+ *   - Title (h2): Center-aligned form title.
+ *   - Image Preview Box: Circular profile image preview (140x140px) dengan red border.
+ *   - Form: Flex column layout dengan consistent gap antara elements.
+ *   - Labels: Bold font, consistent styling.
+ *   - Inputs: Full width text inputs, textareas dengan border & background, padding.
+ *   - File Input: Profile image upload (accept="image/*").
+ *   - Textarea: Resizable vertical, 4 rows height.
+ *   - Submit Button: Red background dengan hover effect & transition.
+ * Features:
+ *   - Image preview update real-time via JavaScript (URL.createObjectURL()).
+ *   - Form fields pre-filled dengan user current data (th:value binding).
+ *   - Optional fields: Semua kecuali fullName adalah optional.
+ * SOLID Principles (CSS):
+ *   - Single Responsibility: Rules fokus hanya pada form styling.
+ *   - DRY: Reusable input & button styling.
+ *   - Maintainability: Semantic class names (.container, .image-preview-box, form, labels).
+ * Responsive: Mobile-friendly dengan max-width media query (max-width: 500px).
+ */

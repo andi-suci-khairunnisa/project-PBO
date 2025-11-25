@@ -42,3 +42,17 @@
 </div>
 </body>
 </html>
+
+<!-- 
+    jobboarddetail.html (Template View)
+    Tanggung Jawab: Menampilkan daftar detail pelamar untuk suatu pekerjaan, hanya bisa diakses oleh job owner.
+    Komponen Utama:
+    - Tabel yang menampilkan semua pelamar untuk pekerjaan tersebut dengan kolom: nama, tanggal melamar, status.
+    - Tombol action: "Lihat Profil" (redirect ke profile pelamar), "Terima" (accept aplikasi), "Tolak" (reject aplikasi).
+    Fitur:
+    - Accept/Reject dilakukan via form POST ke endpoint /job/{jobId}/applicants/{appId}/accept atau reject.
+    - "Lihat Profil" mengarahkan ke halaman profile pelamar untuk job owner bisa melihat CV/experience.
+    SOLID Principles:
+    - Single Responsibility: Template fokus pada presentasi data pelamar, tidak ada business logic.
+    - Separation of Concerns: Form submission dan data processing dilakukan di backend (JobApplicationController).
+-->

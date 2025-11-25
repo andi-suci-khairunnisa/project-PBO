@@ -159,5 +159,25 @@ function confirmLogout() {
 }
 </script>
 
+
 </body>
 </html>
+
+<!-- 
+    jobdetail.html (Template View)
+    Tanggung Jawab: Menampilkan detail pekerjaan lengkap beserta profil job owner dan memungkinkan user melamar ke pekerjaan tersebut.
+    Komponen Utama:
+    - Sidebar navigasi (sama seperti dashboard untuk konsistensi navigasi).
+    - Info box: Lokasi, Gaji, Durasi, Kategori pekerjaan.
+    - Deskripsi pekerjaan lengkap.
+    - "Posted By" card menampilkan profil job owner dengan foto dan tombol "Kirim Pesan" untuk chat.
+    - Tombol "Lamar Pekerjaan" untuk submit aplikasi.
+    - Popup notifikasi jika aplikasi berhasil disubmit.
+    Fitur:
+    - Form POST ke /job/{id}/apply untuk submit aplikasi.
+    - Popup overlay untuk menampilkan success/error message.
+    - Logout confirmation popup (sama seperti halaman lain).
+    SOLID Principles:
+    - Single Responsibility: Template fokus pada presentasi job detail dan form aplikasi, business logic di controller.
+    - Reusable JavaScript: Fungsi logout (openLogoutPopup, closeLogoutPopup, confirmLogout) digunakan di semua halaman dengan sidebar.
+-->

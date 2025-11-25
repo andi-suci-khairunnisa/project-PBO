@@ -250,3 +250,23 @@ form{
         font-size: 30px;
     }
 }
+
+/*
+ * loginandregstyle.css (Stylesheet)
+ * Tanggung Jawab: Styling halaman login & registrasi dengan toggle panel animation.
+ * Komponen Utama:
+ *   - Container: 800x475px white card centered pada page dengan gradient background.
+ *   - Form Box: Absolute positioned untuk login & registrasi form, dengan smooth transition saat toggle.
+ *   - Input Box: Styled input & icon positioning dengan placeholder styling.
+ *   - Buttons: Primary (.btn) & secondary buttons dengan box-shadow & hover effect.
+ *   - Toggle Box: Animated background panel dengan toggle buttons di kiri & kanan.
+ *   - Toggle Panel: Text & button display logic dengan transition delay untuk sequential animation.
+ * Features:
+ *   - Smooth toggle animation antara login ↔ registrasi (~1.5s ease-in-out).
+ *   - Form visibility toggle menggunakan .container.active state.
+ *   - Responsive design untuk mobile (max-width: 650px & 400px).
+ * SOLID Principles (CSS):
+ *   - Single Responsibility: Rules fokus pada form styling & animation logic.
+ *   - DRY: Reusable animation names (@keyframes bisa di-share).
+ *   - Maintainability: Clear state classes (.active) untuk JavaScript toggle logic.
+ */

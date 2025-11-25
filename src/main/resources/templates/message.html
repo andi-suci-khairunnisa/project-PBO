@@ -86,14 +86,36 @@
 
 <script>
     function openLogoutPopup() {
-    document.getElementById("logoutPopup").style.display = "flex";
+        document.getElementById("logoutPopup").style.display = "flex";
     }
     function closeLogoutPopup() {
         document.getElementById("logoutPopup").style.display = "none";
     }
     function confirmLogout() {
-        window.location.href = "/logout"; // arahkan ke endpoint logout
+        window.location.href = "/logout";
     }
 </script>
 </body>
 </html>
+
+<!-- 
+    message.html (Template View)
+    Tanggung Jawab: Menampilkan halaman messaging (chat) dengan conversation list di sebelah kiri dan chat area di sebelah kanan.
+    Komponen Utama:
+    - Sidebar navigasi (sama seperti dashboard).
+    - LEFT: Conversation list menampilkan semua conversation user, diurutkan terbaru terlebih dahulu.
+      Setiap item menampilkan: avatar, username otherUser, pesan terakhir (lastMessage).
+    - RIGHT: Chat area menampilkan pesan dalam conversation terpilih, diurutkan kronologis (lama → baru).
+      Input box untuk mengirim pesan baru.
+    - Empty state jika user belum memilih conversation.
+    - Logout confirmation popup.
+    Fitur:
+    - Click conversation item → redirect ke /message/{conversationId} untuk load conversation terpilih.
+    - Form POST ke /message/send/{conversationId} untuk submit pesan baru.
+    - Responsive UI: conversation list di kiri, chat di kanan.
+    Notifikasi:
+    - Badge acceptedNotifications pada "Pekerjaan Saya" (sama seperti halaman lain).
+    SOLID Principles:
+    - Single Responsibility: Template fokus pada presentasi messaging UI, business logic di ChatController & MessageService.
+    - Separation of Concerns: Conversation list logic di backend (ConversationService), chat input adalah simple form POST.
+-->

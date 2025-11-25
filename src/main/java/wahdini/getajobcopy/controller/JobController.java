@@ -7,26 +7,31 @@ import wahdini.getajobcopy.repository.UserRepository;
 import wahdini.getajobcopy.repository.JobApplicationRepository;
 import wahdini.getajobcopy.repository.JobRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/jobs")
 public class JobController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final JobRepository jobRepository;
+    private final JobApplicationRepository jobApplicationRepository;
 
-    @Autowired
-    private JobRepository jobRepository;
-
-    @Autowired
-    private JobApplicationRepository jobApplicationRepository;
+    public JobController(UserRepository userRepository,
+                          JobRepository jobRepository,
+                          JobApplicationRepository jobApplicationRepository) {
+        this.userRepository = userRepository;
+        this.jobRepository = jobRepository;
+        this.jobApplicationRepository = jobApplicationRepository;
+    }
 
     // === LAMAR PEKERJAAN ===
     @PostMapping("/apply/{jobId}")
@@ -59,46 +64,16 @@ public class JobController {
         return "redirect:/pekerjaansaya";
     }
 
-    // === LIST JOB HALAMAN PEKERJAAN TERBARU ===
-    @GetMapping
-    public String getAllJobs(Model model) {
-        model.addAttribute("jobs", jobRepository.findAll());
-        return "jobs";
-    }
-
     // === FORM TAMBAH PEKERJAAN ===
     @GetMapping("/add")
     public String showAddJobForm(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         User user = userRepository.findByUsername(username);
 
-        java.util.List<Job> jobs = jobRepository.findByUser(user);
+        List<Job> jobs = jobRepository.findByUser(user);
+        Set<Long> jobsWithApplicants = determineJobsWithNewApplicants(jobs);
 
-        // determine which jobs have NEW applicants since owner last viewed
-        java.util.Set<Long> jobsWithApplicants = new java.util.HashSet<>();
-        for (Job j : jobs) {
-            java.util.List<JobApplication> apps = jobApplicationRepository.findByJob(j);
-            if (apps.isEmpty()) continue;
-
-            // find latest application date
-            java.time.LocalDateTime latest = null;
-            for (JobApplication a : apps) {
-                if (a.getAppliedDate() != null) {
-                    if (latest == null || a.getAppliedDate().isAfter(latest)) {
-                        latest = a.getAppliedDate();
-                    }
-                }
-            }
-
-            // if owner never viewed (lastViewedAt == null) and there is at least one app -> show dot
-            if (j.getLastViewedAt() == null && latest != null) {
-                jobsWithApplicants.add(j.getId());
-            } else if (latest != null && j.getLastViewedAt() != null && latest.isAfter(j.getLastViewedAt())) {
-                jobsWithApplicants.add(j.getId());
-            }
-        }
-
-        model.addAttribute("jobs", jobs); // ⬅ kirim list job ke halaman
+        model.addAttribute("jobs", jobs);
         model.addAttribute("jobsWithApplicants", jobsWithApplicants);
         return "tambahpekerjaan";
     }
@@ -148,11 +123,40 @@ public class JobController {
         return "pekerjaansaya";
     }
 
-    // === API LIST JOB ===
-    @GetMapping("/api")
-    @ResponseBody
-    public java.util.List<Job> getJobsAPI() {
-        return jobRepository.findAll();
+    private Set<Long> determineJobsWithNewApplicants(List<Job> jobs) {
+        Set<Long> jobsWithApplicants = new HashSet<>();
+        for (Job j : jobs) {
+            List<JobApplication> apps = jobApplicationRepository.findByJob(j);
+            if (apps.isEmpty()) continue;
+
+            // find latest application date
+            LocalDateTime latest = null;
+            for (JobApplication a : apps) {
+                if (a.getAppliedDate() != null) {
+                    if (latest == null || a.getAppliedDate().isAfter(latest)) {
+                        latest = a.getAppliedDate();
+                    }
+                }
+            }
+
+            // show dot if owner never viewed or latest app is newer than last viewed
+            if (j.getLastViewedAt() == null && latest != null) {
+                jobsWithApplicants.add(j.getId());
+            } else if (latest != null && j.getLastViewedAt() != null && latest.isAfter(j.getLastViewedAt())) {
+                jobsWithApplicants.add(j.getId());
+            }
+        }
+        return jobsWithApplicants;
     }
-    
 }
+
+// Controller ini menangani operasi terkait pekerjaan (job) oleh pemilik:
+// - Menangani aplikasi/lamaran pekerjaan (`POST /jobs/apply/{jobId}`)
+// - Menampilkan form tambah pekerjaan dan daftar job dengan notifikasi pelamar
+//   (`GET /jobs/add`)
+// - Menyimpan pekerjaan baru (`POST /jobs/add`)
+// - Menampilkan daftar pekerjaan pengguna (`GET /jobs/my`)
+// Perbaikan SOLID yang diterapkan:
+// - Single Responsibility: logika notifikasi diekstraksi ke helper method
+// - Constructor Injection: semua dependencies disuntikkan lewat konstruktor
+// - Removed unused endpoints: /jobs dan /api dihapus (tidak dipakai)

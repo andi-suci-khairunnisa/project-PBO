@@ -35,24 +35,28 @@ public class JobApplication {
         this.appliedDate = LocalDateTime.now();
     }
 
-    // GETTER & SETTER
+    // Getter
     public Long getId() { return id; }
-
     public User getUser() { return user; }
-
     public Job getJob() { return job; }
-
     public String getStatus() { return status; }
-
     public LocalDateTime getAppliedDate() { return appliedDate; }
 
+    // Setter
     public void setId(Long id) { this.id = id; }
-
     public void setUser(User user) { this.user = user; }
-
     public void setJob(Job job) { this.job = job; }
-
     public void setStatus(String status) { this.status = status; }
-
     public void setAppliedDate(LocalDateTime appliedDate) { this.appliedDate = appliedDate; }
 }
+
+// Model ini merepresentasikan lamaran pekerjaan yang dikirim oleh pelamar ke pemilik job.
+// Field persisten:
+// - id: identifier unik lamaran
+// - user: relasi ke User (pelamar)
+// - job: relasi ke Job (pekerjaan yang dilamar)
+// - status: status lamaran (APPLIED, ACCEPTED, REJECTED, FINISHED)
+// - appliedDate: waktu lamaran dikirim (otomatis set ke now saat construct)
+// Constructor: menerima user, job, status dan otomatis mengisi appliedDate
+// Desain menerapkan SRP: model hanya menyimpan data lamaran; logika perubahan
+// status (accept/reject/finish) ditangani di controller/service layer.

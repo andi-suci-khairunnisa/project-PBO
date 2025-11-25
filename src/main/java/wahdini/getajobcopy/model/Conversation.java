@@ -1,7 +1,6 @@
 package wahdini.getajobcopy.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "conversations")
@@ -52,3 +51,11 @@ public class Conversation {
     public Long getLastMessageSenderId() { return lastMessageSenderId; }
     public void setLastMessageSenderId(Long lastMessageSenderId) { this.lastMessageSenderId = lastMessageSenderId; }
 }
+
+// Model ini merepresentasikan percakapan antara dua pengguna dalam aplikasi messaging.
+// Field persisten (disimpan DB): id, user1Id, user2Id
+// Field transient (tidak disimpan DB): otherUser, lastMessage, lastMessageSenderId
+//   diisi secara dinamis oleh service saat retrieve percakapan untuk tampilan UI
+// Pola: model ini menerapkan SRP dengan memisahkan data persisten dari data
+// presentasi (transient), sehingga service layer lebih mudah mengelola logika
+// pengayaan data sebelum dikirim ke view.

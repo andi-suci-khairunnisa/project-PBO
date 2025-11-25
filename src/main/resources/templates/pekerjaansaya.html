@@ -146,9 +146,31 @@ function closeLogoutPopup() {
     document.getElementById("logoutPopup").style.display = "none";
 }
 function confirmLogout() {
-    window.location.href = "/logout"; // arahkan ke endpoint logout
+    window.location.href = "/logout";
 }
 </script>
 
 </body>
 </html>
+
+<!-- 
+    pekerjaansaya.html (Template View)
+    Tanggung Jawab: Menampilkan riwayat aplikasi pekerjaan yang user lamar, dengan filter status: Dilamar, Diterima, Selesai.
+    Komponen Utama:
+    - Sidebar navigasi (sama seperti dashboard).
+    - Tab buttons untuk filter: "Dilamar" (APPLIED), "Diterima" (ACCEPTED), "Selesai" (FINISHED).
+    - Job card untuk setiap aplikasi yang menampilkan: job title, location, tombol "Lihat detail".
+    - Tab "Diterima" memiliki tombol tambahan "Tandai Telah Selesai" untuk mark aplikasi sebagai FINISHED.
+    Fitur:
+    - Tab switching menggunakan JavaScript (client-side toggle tanpa reload).
+    - "Lihat detail" → redirect ke /job/{jobId} untuk lihat full job detail.
+    - "Tandai Telah Selesai" → POST ke /pekerjaansaya/{appId}/finish untuk update status ke FINISHED.
+    - Logout confirmation popup.
+    Data dari Controller:
+    - dilamarList: JobApplication dengan status APPLIED.
+    - diterimaList: JobApplication dengan status ACCEPTED.
+    - selesaiList: JobApplication dengan status FINISHED.
+    SOLID Principles:
+    - Single Responsibility: Template fokus pada presentasi riwayat aplikasi dan tab UI, business logic di JobApplicationController.
+    - Separation of Concerns: Tab logic di JavaScript, data filtering di backend.
+-->

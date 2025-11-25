@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class AuthController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final wahdini.getajobcopy.service.AuthService authService;
+
+    public AuthController(wahdini.getajobcopy.service.AuthService authService) {
+        this.authService = authService;
+    }
 
     @GetMapping("/")
     public String home(@RequestParam(value = "error", required = false) String error, org.springframework.ui.Model model) {
@@ -23,10 +26,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String register(@RequestParam String username, @RequestParam String password) {
-        User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setPassword(password);
-        userRepository.save(newUser);
+        authService.register(username, password);
         return "redirect:/";
     }
 
@@ -35,20 +35,14 @@ public class AuthController {
                         @RequestParam String password,
                         HttpSession session) {
 
-        User user = userRepository.findByUsername(username);
-
-        if (user != null && user.getPassword().equals(password)) {
-
-            // WAJIB AGAR /pekerjaansaya TIDAK NULL
+        User user = authService.authenticate(username, password);
+        if (user != null) {
+            // Simpan user di session untuk akses halaman lain
             session.setAttribute("loggedInUser", user);
-
-            // Yang lama tetap boleh
             session.setAttribute("username", user.getUsername());
             session.setAttribute("userId", user.getId());
-
             return "redirect:/dashboard";
         }
-
         return "redirect:/?error=true";
     }
 
@@ -58,3 +52,11 @@ public class AuthController {
         return "redirect:/";
     }
 }
+
+// Controller ini bertanggung jawab untuk autentikasi dan pendaftaran pengguna:
+// - Menyajikan halaman login (`GET /`)
+// - Menerima permintaan login (`POST /login`) dan menyimpan info user ke session
+// - Menerima pendaftaran (`POST /register`) dan mendelegasikannya ke `AuthService`
+// - Menangani logout (`GET /logout`)
+// Perubahan: logika bisnis terkait autentikasi telah diekstraksi ke `AuthService`
+// untuk mematuhi Single Responsibility Principle dan meningkatkan testabilitas.

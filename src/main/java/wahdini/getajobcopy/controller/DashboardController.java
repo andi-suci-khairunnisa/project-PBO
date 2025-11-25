@@ -11,30 +11,37 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DashboardController {
 
-    @Autowired
-private JobRepository jobRepository;
+    private final JobRepository jobRepository;
 
-@GetMapping("/dashboard")
-public String dashboard(HttpSession session, Model model) {
+    public DashboardController(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
+    }
 
-    String username = (String) session.getAttribute("username");
-    if (username == null) return "redirect:/";
+    @GetMapping("/dashboard")
+    public String dashboard(HttpSession session, Model model) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) return "redirect:/";
 
-    model.addAttribute("username", username);
+        model.addAttribute("username", username);
 
-    // Tambahkan list job terbaru — hanya tampilkan job yang masih ACTIVE
-    model.addAttribute("jobs", jobRepository.findByStatus("ACTIVE"));
+        // Tambahkan list job terbaru — hanya tampilkan job yang masih ACTIVE
+        model.addAttribute("jobs", jobRepository.findByStatus("ACTIVE"));
 
-    return "dashboard";
+        return "dashboard";
+    }
+
+    @GetMapping("/tambahpekerjaan")
+    public String redirectAddJob() {
+        return "redirect:/jobs/add";
+    }
+
 }
 
-// @GetMapping("/tambahpekerjaan")
-// public String showAddJobForm() {
-//     return "tambahpekerjaan";
-// }
-
-@GetMapping("/tambahpekerjaan")
-public String redirectAddJob() {
-    return "redirect:/jobs/add";
-}
-}
+// Controller ini bertanggung jawab untuk menyajikan halaman dashboard
+// pengguna dan meneruskan pengguna ke halaman tambah pekerjaan.
+// Tanggung jawab:
+// - Memeriksa apakah pengguna ter-login (session username)
+// - Menyediakan daftar pekerjaan berstatus "ACTIVE" untuk ditampilkan di dashboard
+// - Mengarahkan endpoint `/tambahpekerjaan` ke `/jobs/add`
+// Desain: controller hanya melakukan routing dan pengisian model; akses data
+// didelegasikan ke `JobRepository` sehingga mematuhi Single Responsibility Principle.

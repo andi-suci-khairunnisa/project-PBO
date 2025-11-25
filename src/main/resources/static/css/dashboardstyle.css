@@ -197,8 +197,6 @@ aside .sidebar a:hover span{
     transition: .4s ease;
 }
 
-/* diatas adalah sidebar menu */
-
 .box{
     max-width: 900px;
     margin: auto;
@@ -349,4 +347,33 @@ aside .sidebar a:hover span{
     background: #bdbdbd;
     color: #000;
 }
+
+.notif-badge {
+    background: #ef4444;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px !important;  /* ukuran aman dibaca */
+    margin-left: 8px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*
+ * dashboardstyle.css (Stylesheet)
+ * Tanggung Jawab: Styling halaman dashboard dengan job listing, sidebar navigation, welcome card, search box.
+ * Komponen Utama:
+ *   - Sidebar: Fixed left panel dengan navigation links, active state, hover animations.
+ *   - Welcome Card: Gradient background dengan personal greeting.
+ *   - Search Box: Primary color background dengan search input styling.
+ *   - Job Cards: Grid layout responsive dengan job title, location, price, detail button.
+ *   - Logout Popup: Fixed overlay dengan confirmation dialog dan action buttons.
+ * SOLID Principles (CSS):
+ *   - Single Responsibility: Rules diorganisir per component.
+ *   - DRY: Menggunakan CSS Custom Properties (--clr-primary, --border-radius-2) untuk reusability.
+ *   - Maintainability: Semantic class names dengan clear purpose (.job-card, .detail-btn, .welcome-card).
+ */
 

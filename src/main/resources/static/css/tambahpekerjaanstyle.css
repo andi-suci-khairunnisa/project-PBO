@@ -197,9 +197,6 @@ aside .sidebar a:hover span{
     transition: .4s ease;
 }
 
-/* DIATAS ADALAH STYLE UNTUK SIDEBAR */
-
-/* Page Container */
 .page {
     flex: 1;
     padding: 20px;
@@ -506,9 +503,10 @@ textarea {
 .notif-badge {
     background: #ef4444;
     color: #fff;
-    border-radius: 999px;
-    padding: 3px 8px;
-    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px !important;  /* ukuran aman dibaca */
     margin-left: 8px;
     font-weight: 700;
     display: inline-flex;
@@ -531,7 +529,6 @@ textarea {
 /* place notif-dot when used inside positioned button */
 .btn-detail.modern .notif-dot {
     position: absolute;
-    /* place outside the button top-right corner */
     top: -6px;
     right: -6px;
     margin-left: 0;
@@ -539,3 +536,31 @@ textarea {
     height: 12px;
     box-shadow: 0 4px 10px rgba(239,68,68,0.18);
 }
+
+/*
+ * tambahpekerjaanstyle.css (Stylesheet)
+ * Tanggung Jawab: Styling halaman "Tambah Pekerjaan" dengan 2 pages (histori pekerjaan & form posting).
+ * Komponen Utama:
+ *   - Sidebar: Fixed left navigation panel.
+ *   - Page Container: Flex layout untuk page switching (PAGE 1 & PAGE 2) dengan .active class.
+ *   - Card: White background centered container dengan shadow & max-width limit.
+ *   - Table: Job posting history dengan columns: title, kategori, price, postedDate, status, aksi (Lihat Detail).
+ *   - Status Badges: .status-badge dengan conditional styling (.status-selesai, .status-berlangsung).
+ *   - Detail Button: Modern gradient button dengan notif-dot indicator untuk ada pelamar baru.
+ *   - Form (PAGE 2): Inputs, selects, textarea untuk posting pekerjaan baru dengan fields: title, location, price, duration, kategori, description, phone/contact.
+ *   - Buttons: .btn-primary (submit) & .btn-secondary dengan styling & hover effects.
+ *   - Form Validation: Disabled submit button sampai semua required fields terisi (validateForm JS function).
+ *   - Row & Col: Grid helpers untuk 2-column layout di form.
+ *   - Logout Popup: Confirmation dialog untuk logout.
+ * Features:
+ *   - Page switching dengan goTo() function (client-side, no reload).
+ *   - Dynamic form validation di setiap input change event.
+ *   - Table row hover effect dengan background color change.
+ *   - Responsive design dengan media query (max-width: 768px) untuk mobile.
+ *   - Animations: fadeIn & slideDown keyframes untuk popup.
+ * SOLID Principles (CSS):
+ *   - Single Responsibility: Rules fokus pada job board styling & form styling.
+ *   - DRY: Reusable button (.btn-primary, .btn-secondary), status badge (.status-badge), page logic (.page.active).
+ *   - Maintainability: Semantic class names dengan clear UI sections (table, form, buttons).
+ * Accessibility: Focus states, disabled button styling, clear visual hierarchy.
+ */

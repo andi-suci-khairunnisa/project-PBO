@@ -196,10 +196,6 @@ aside .sidebar a:hover span{
     transition: .4s ease;
 }
 
-/* ================================
-MESSAGES STYLE CSS
-================================= */
-
 .messages-container {
     position: fixed;
     top: 0;
@@ -229,9 +225,10 @@ MESSAGES STYLE CSS
 .notif-badge {
     background: #ef4444;
     color: #fff;
-    border-radius: 999px;
-    padding: 3px 8px;
-    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px !important;  /* ukuran aman dibaca */
     margin-left: 8px;
     font-weight: 700;
     display: inline-flex;
@@ -424,4 +421,28 @@ MESSAGES STYLE CSS
     background: #bdbdbd;
     color: #000;
 }
+
+/*
+ * messagestyle.css (Stylesheet)
+ * Tanggung Jawab: Styling halaman messaging (chat/conversation dengan sidebar navigation & two-panel layout).
+ * Komponen Utama:
+ *   - Sidebar: Fixed left navigation panel.
+ *   - Messages Container: 2-column grid layout (28% conversation list, 72% chat area).
+ *   - Conversation List: Scrollable list dengan avatar, username, last message preview per conversation.
+ *   - Chat Area: Header, scrollable messages, sticky input area di bottom.
+ *   - Message Bubbles: Different styling untuk "me" (right, primary color) & "other" (left, secondary color).
+ *   - Chat Input: Flex layout dengan input field & send button.
+ *   - Empty State: Placeholder text ketika no conversation selected.
+ *   - Notifications: Badge & dot badges untuk notification indicators.
+ *   - Logout Popup: Confirmation dialog untuk logout.
+ * Features:
+ *   - Scrollbar styling untuk conversation list & chat messages.
+ *   - Custom scrollbar thumb color dengan webkit pseudo-selector.
+ *   - Message positioning dengan clear: both untuk proper text wrapping.
+ * SOLID Principles (CSS):
+ *   - Single Responsibility: Rules diorganisir per UI component (.conversation-list, .chat-area, .message, .chat-input).
+ *   - DRY: Reusable button & notification classes (.notif-badge, .notif-dot).
+ *   - Maintainability: Semantic class names dengan clear purpose.
+ * Responsive: Grid dapat collapse menjadi single column di mobile.
+ */
 

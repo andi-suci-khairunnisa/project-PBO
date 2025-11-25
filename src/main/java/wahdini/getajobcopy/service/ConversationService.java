@@ -6,7 +6,6 @@ import wahdini.getajobcopy.model.User;
 import wahdini.getajobcopy.repository.ConversationRepository;
 import wahdini.getajobcopy.repository.MessageRepository;
 import wahdini.getajobcopy.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +15,17 @@ import java.util.stream.Collectors;
 @Service
 public class ConversationService {
 
-    @Autowired
-    private ConversationRepository conversationRepository;
+    private final ConversationRepository conversationRepository;
+    private final UserRepository userRepository;
+    private final MessageRepository messageRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private MessageRepository messageRepository;
+    public ConversationService(ConversationRepository conversationRepository, 
+                               UserRepository userRepository, 
+                               MessageRepository messageRepository) {
+        this.conversationRepository = conversationRepository;
+        this.userRepository = userRepository;
+        this.messageRepository = messageRepository;
+    }
 
     /**
      * Ambil semua conversation milik user dan isi field transient:
@@ -85,3 +87,15 @@ public class ConversationService {
         return conversationRepository.save(newConv);
     }
 }
+
+/*
+ * ConversationService (Service Layer)
+ * Tanggung Jawab: Mengelola logika bisnis conversation, termasuk enrichment data transient fields (otherUser, lastMessage, lastMessageSenderId).
+ * SOLID Principles:
+ *   - Single Responsibility: Service ini fokus hanya pada operasi conversation, pemisahan concern dari controller.
+ *   - Dependency Inversion: Constructor injection untuk 3 repository, tidak terikat implementasi konkret.
+ * Method tersedia:
+ *   - getAllConversations(): Ambil semua conversation milik user + isi field transient (otherUser, lastMessage, lastMessageSenderId) untuk sidebar display.
+ *   - getConversation(): Ambil satu conversation by ID (tanpa filling transient fields).
+ *   - getOrCreateConversation(): Cek apakah conversation sudah ada; jika tidak, buat baru. Mencegah self-chat (user1 = user2).
+ */

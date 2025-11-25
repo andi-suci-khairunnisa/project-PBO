@@ -67,3 +67,21 @@
     <script th:src="@{/js/loginandregscript.js}"></script>
 </body>
 </html>
+
+<!-- 
+    login.html (Template View)
+    Tanggung Jawab: Menampilkan form login dan registrasi dalam satu halaman dengan toggle panel untuk switch antara mode login dan registrasi.
+    Komponen Utama:
+    - Form Login: Input username & password, submit ke /login endpoint.
+    - Form Registrasi: Input username, email, password, submit ke /register endpoint.
+    - Toggle panel dengan animasi untuk switch mode login ↔ registrasi.
+    - Error message display jika login gagal (dari controller, variable ${error}).
+    Fitur:
+    - Login POST ke /login dengan parameters: username, password.
+    - Registrasi POST ke /register dengan parameters: username, email, password.
+    - Client-side toggle UI untuk seamless UX switch form.
+    - Boxicons untuk icon input fields (user, email, password).
+    SOLID Principles:
+    - Single Responsibility: Template fokus pada presentasi form, business logic (validation, authentication) di backend.
+    - Separation of Concerns: HTML untuk struktur, CSS untuk styling, JavaScript untuk interaksi toggle panel.
+-->

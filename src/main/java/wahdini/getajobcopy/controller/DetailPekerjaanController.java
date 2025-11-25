@@ -1,7 +1,6 @@
 package wahdini.getajobcopy.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +18,17 @@ import java.util.List;
 @RequestMapping("/job")
 public class DetailPekerjaanController {
 
-    @Autowired
-    private JobRepository jobRepository;
+    private final JobRepository jobRepository;
+    private final UserRepository userRepository;
+    private final JobApplicationRepository jobApplicationRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private JobApplicationRepository jobApplicationRepository;
+    public DetailPekerjaanController(JobRepository jobRepository,
+                                      UserRepository userRepository,
+                                      JobApplicationRepository jobApplicationRepository) {
+        this.jobRepository = jobRepository;
+        this.userRepository = userRepository;
+        this.jobApplicationRepository = jobApplicationRepository;
+    }
 
     // === DETAIL PEKERJAAN ===
     @GetMapping("/{id}")
@@ -51,8 +53,10 @@ public class DetailPekerjaanController {
         Job job = jobRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Job tidak ditemukan"));
 
-        String username = (String) session.getAttribute("username");
-        User currentUser = userRepository.findByUsername(username);
+        User currentUser = getCurrentUser(session);
+        if (currentUser == null) {
+            return "redirect:/";
+        }
 
         // Cegah double apply
         List<JobApplication> existing = jobApplicationRepository.findByUserAndJob(currentUser, job);
@@ -84,13 +88,11 @@ public class DetailPekerjaanController {
         Job job = jobRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Job tidak ditemukan"));
 
-        String username = (String) session.getAttribute("username");
-        if (username == null) return "redirect:/";
-
-        User currentUser = userRepository.findByUsername(username);
+        User currentUser = getCurrentUser(session);
+        if (currentUser == null) return "redirect:/";
 
         // Hanya pemilik pekerjaan boleh melihat list pelamar
-        if (currentUser == null || !job.getUser().getId().equals(currentUser.getId())) {
+        if (!job.getUser().getId().equals(currentUser.getId())) {
             return "redirect:/";
         }
 
@@ -108,10 +110,8 @@ public class DetailPekerjaanController {
 
     @PostMapping("/{jobId}/applicants/{appId}/accept")
     public String acceptApplicant(@PathVariable Long jobId, @PathVariable Long appId, HttpSession session) {
-        String username = (String) session.getAttribute("username");
-        if (username == null) return "redirect:/";
-
-        User currentUser = userRepository.findByUsername(username);
+        User currentUser = getCurrentUser(session);
+        if (currentUser == null) return "redirect:/";
 
         JobApplication app = jobApplicationRepository.findById(appId)
                 .orElseThrow(() -> new IllegalArgumentException("Lamaran tidak ditemukan"));
@@ -132,10 +132,8 @@ public class DetailPekerjaanController {
 
     @PostMapping("/{jobId}/applicants/{appId}/reject")
     public String rejectApplicant(@PathVariable Long jobId, @PathVariable Long appId, HttpSession session) {
-        String username = (String) session.getAttribute("username");
-        if (username == null) return "redirect:/";
-
-        User currentUser = userRepository.findByUsername(username);
+        User currentUser = getCurrentUser(session);
+        if (currentUser == null) return "redirect:/";
 
         JobApplication app = jobApplicationRepository.findById(appId)
                 .orElseThrow(() -> new IllegalArgumentException("Lamaran tidak ditemukan"));
@@ -148,4 +146,16 @@ public class DetailPekerjaanController {
 
         return "redirect:/job/" + jobId + "/jobboarddetail";
     }
+
+    private User getCurrentUser(HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) return null;
+        return userRepository.findByUsername(username);
+    }
 }
+
+// Controller ini menangani operasi terkait pekerjaan (job): menampilkan detail,
+// menerima pengajuan lamaran, menampilkan daftar pelamar untuk pemilik pekerjaan,
+// serta menerima/menolak pelamar. Logika penyimpanan dan kueri didelegasikan
+// ke repository/service sehingga controller hanya bertugas mengatur routing
+// dan otorisasi dasar (mematuhi prinsip Single Responsibility dan Dependency Injection).

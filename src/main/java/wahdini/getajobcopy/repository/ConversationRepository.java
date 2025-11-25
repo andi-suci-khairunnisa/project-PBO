@@ -22,3 +22,16 @@ public interface ConversationRepository extends JpaRepository<Conversation, Long
     // Ambil daftar percakapan user, urut percakapan terbaru → lama
     List<Conversation> findByUser1IdOrUser2IdOrderByIdDesc(Long userId1, Long userId2);
 }
+
+/*
+ * ConversationRepository (Interface Repository)
+ * Tanggung Jawab: Menyediakan akses data untuk entity Conversation dengan fokus pada pencarian dan penyaringan percakapan.
+ * SOLID Principles:
+ *   - Interface Segregation: Interface ini hanya menyediakan query methods yang spesifik untuk Conversation, tidak ada method yang tidak perlu.
+ *   - Dependency Inversion: Bergantung pada abstraksi JpaRepository, bukan implementasi konkret.
+ * Method tersedia:
+ *   - findByUser1IdAndUser2Id(): Cari percakapan dari user1 ke user2 (directional)
+ *   - findByUser2IdAndUser1Id(): Cari percakapan dari user2 ke user1 (directional)
+ *   - findByUser1IdOrUser2Id(): Ambil semua percakapan milik user tanpa urutan
+ *   - findByUser1IdOrUser2IdOrderByIdDesc(): Ambil percakapan user, diurutkan dari terbaru ke lama untuk UI sidebar
+ */

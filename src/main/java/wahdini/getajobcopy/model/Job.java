@@ -30,7 +30,7 @@ public class Job {
 
     public Job() {}
 
-    // GETTER
+    // Getter
     public Long getId() { return id; }
     public String getTitle() { return title; }
     public String getLocation() { return location; }
@@ -44,7 +44,7 @@ public class Job {
     public String getStatus() { return status; }
     public User getUser() { return user; }
 
-    // SETTER
+    // Setter
     public void setId(Long id) { this.id = id; }
     public void setTitle(String title) { this.title = title; }
     public void setLocation(String location) { this.location = location; }
@@ -58,10 +58,19 @@ public class Job {
     public void setStatus(String status) { this.status = status; }
     public void setUser(User user) { this.user = user; }
 
-    // === OTOMATIS TERISI SAAT INSERT ===
     @PrePersist
     protected void onCreate() {
         this.postedDate = LocalDateTime.now();
-        this.status = "ACTIVE";  // default status
+        this.status = "ACTIVE";
     }
 }
+
+// Model ini merepresentasikan entitas pekerjaan/job yang diposting oleh pemilik.
+// Field persisten:
+// - Informasi dasar: title, location, price, description, duration, kategori, phone
+// - Metadata: postedDate (otomatis set saat insert), status (ACTIVE/ASSIGNED/FINISHED),
+//   lastViewedAt (diupdate saat pemilik buka halaman pelamar untuk tracking notifikasi)
+// - Relasi: user (pemilik yang memposting job)
+// Lifecycle: @PrePersist mengisi postedDate dan status default otomatis.
+// Desain menerapkan SRP: model hanya menyimpan data dan lifecycle hook, logika
+// bisnis (notifikasi, status transition) ada di controller/service layer.

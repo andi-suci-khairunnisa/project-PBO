@@ -9,15 +9,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // =============================
-    // FIELD LOGIN DASAR
-    // =============================
+    // Field Login Dasar
     private String username;
     private String password;
 
-    // =============================
-    // FIELD PROFIL TAMBAHAN
-    // =============================
+    // Field Profil Tambahan
     private String fullName;        
     private String job;             
     private String phone;           
@@ -28,21 +24,16 @@ public class User {
 
     private String profileImage;    
 
-    // =============================
-    // FIELD PENGALAMAN KERJA
-    // =============================
-    private String expTitle;          // Nama jabatan / posisi
-    private String expCompany;        // Nama perusahaan / tempat kerja
-    private String expStart;          // Tahun mulai atau tanggal mulai
-    private String expEnd;            // Tahun selesai atau tanggal selesai
+    // Field Pengalaman Kerja
+    private String expTitle;
+    private String expCompany;
+    private String expStart;
+    private String expEnd;
     
     @Column(columnDefinition = "TEXT")
-    private String expDescription;    // Deskripsi pekerjaan
+    private String expDescription;
 
-    // =============================
-    // GETTER & SETTER
-    // =============================
-
+    // Getter & Setter
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -67,8 +58,6 @@ public class User {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    // rating removed
-
     public String getProfileImage() { return profileImage; }
     public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
 
@@ -87,3 +76,19 @@ public class User {
     public String getExpDescription() { return expDescription; }
     public void setExpDescription(String expDescription) { this.expDescription = expDescription; }
 }
+
+/*
+ * User (Entity Model)
+ * Tanggung Jawab: Merepresentasikan data user dalam aplikasi, termasuk kredensial login dan profil lengkap.
+ * SOLID Principles:
+ *   - Single Responsibility: Model ini fokus hanya pada state/data user, tidak ada business logic kompleks.
+ *   - Open/Closed: Entity dapat diperluas dengan field baru tanpa memodifikasi logic yang ada.
+ * 
+ * Field yang disediakan dibagi menjadi 3 kategori:
+ *   - Login: username, password (untuk autentikasi).
+ *   - Profil: fullName, job, phone, location, description, profileImage (info personal user).
+ *   - Pengalaman Kerja: expTitle, expCompany, expStart, expEnd, expDescription (riwayat kerja user).
+ * 
+ * User entity dipetakan ke tabel "user" di database dan dapat dihubungkan ke entity lain 
+ * (Job sebagai creator, JobApplication sebagai applicant, Message sebagai sender/receiver, dll).
+ */

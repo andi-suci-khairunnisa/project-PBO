@@ -13,3 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:" + System.getProperty("user.dir") + "/uploads/");
     }
 }
+// WebConfig: maps requests under `/uploads/**` to files inside the project's
+// `uploads/` folder on disk (uses the JVM `user.dir` path). This enables
+// serving user-uploaded files (images, attachments) via URLs like
+// `/uploads/<filename>`.

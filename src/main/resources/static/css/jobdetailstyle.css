@@ -197,8 +197,6 @@ aside .sidebar a:hover span{
     transition: .4s ease;
 }
 
-/* diatas adalah sidebar menu */
-
 .detail-container {
     max-width: 850px;
     margin: 30px;
@@ -395,6 +393,20 @@ aside .sidebar a:hover span{
     color: #000;
 }
 
+.notif-badge {
+    background: #ef4444;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px !important;  /* ukuran aman dibaca */
+    margin-left: 8px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 /* Animations */
 @keyframes fadeIn {
@@ -412,3 +424,22 @@ aside .sidebar a:hover span{
         opacity: 1;
     }
 }
+
+/*
+ * jobdetailstyle.css (Stylesheet)
+ * Tanggung Jawab: Styling halaman job detail (informasi pekerjaan lengkap, apply button, job poster profile, messaging).
+ * Komponen Utama:
+ *   - Sidebar: Fixed left panel dengan navigation links.
+ *   - Detail Container: Main content area dengan job title, info grid (location, salary, duration, category).
+ *   - Info Grid: 2-column grid layout dengan info boxes (icon + label + value).
+ *   - Job Description: Long-form text area untuk deskripsi pekerjaan.
+ *   - Apply Button: Centered button untuk submit aplikasi.
+ *   - Posted By Card: Profile card job poster dengan foto, username, "Send Message" button untuk chat.
+ *   - Popup Overlay: Success notification popup dengan fade & slide animations.
+ *   - Logout Popup: Confirmation dialog untuk logout.
+ * SOLID Principles (CSS):
+ *   - Single Responsibility: Rules diorganisir per section (.info-grid, .job-desc, .posted-card, .popup-overlay).
+ *   - DRY: CSS Custom Properties untuk colors & spacing, reusable classes.
+ *   - Accessibility: Hover states, animations, focus states untuk keyboard nav.
+ * Responsive: Info grid dapat collapse menjadi single column di mobile.
+ */
