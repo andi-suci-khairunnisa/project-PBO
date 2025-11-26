@@ -107,7 +107,7 @@ b{
     color: var(--clr-success);
 }
 .danger{
-    color: var(--clr-danger);
+    color: var(--clr-primary);
 }
 .warning{
     color: var(--clr-warnig);
