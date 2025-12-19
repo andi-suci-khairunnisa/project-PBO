@@ -9,3 +9,5 @@ public class GetajobcopyApplication {
         SpringApplication.run(GetajobcopyApplication.class, args);
     }
 }
+
+

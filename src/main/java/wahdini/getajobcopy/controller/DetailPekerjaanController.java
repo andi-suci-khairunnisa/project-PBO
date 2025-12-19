@@ -11,7 +11,7 @@ import wahdini.getajobcopy.repository.JobApplicationRepository;
 import wahdini.getajobcopy.repository.JobRepository;
 import wahdini.getajobcopy.repository.UserRepository;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; 
 import java.util.List;
 
 @Controller
